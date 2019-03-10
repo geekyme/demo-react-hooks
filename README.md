@@ -1,6 +1,6 @@
 # demo-react-hooks
 
-A demo on how to use react hooks for everything.
+A demo on how to use react hooks for everything. [DEMO](https://demo-react-hooks-3lt8ehjye.now.sh/)
 
 Concepts:
 
