@@ -1,13 +1,17 @@
-import { useState } from "react";
-import { useAdd, useRemove } from "./actions";
+import { useState, useEffect } from "react";
+import { init, useAdd, useRemove } from "./actions";
 import { useAppState } from "components/StateProvider";
 
 export default function EditableList() {
-  const [appState] = useAppState();
+  const [appState, setAppState] = useAppState();
   const [inputState, setInputState] = useState("");
   const [errorState, setErrorState] = useState(null);
   const add = useAdd();
   const remove = useRemove();
+
+  useEffect(function mount() {
+    init().then(setAppState);
+  }, []);
 
   async function onAdd(e) {
     e.preventDefault();
