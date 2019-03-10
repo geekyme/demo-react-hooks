@@ -1,7 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getActions } from "./actions";
 
-const StateProvider = ({ initialState, children }) => {
+const defaultState = {
+  agenda: {
+    items: []
+  }
+};
+
+const StateProvider = ({ initialState = defaultState, children }) => {
   const [state, setState] = useState(initialState);
 
   const context = {

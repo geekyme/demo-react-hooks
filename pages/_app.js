@@ -3,12 +3,6 @@ import App, { Container } from "next/app";
 import StateProvider from "components/StateProvider";
 
 class MyApp extends App {
-  initialState = {
-    agenda: {
-      items: []
-    }
-  };
-
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
 
@@ -24,7 +18,7 @@ class MyApp extends App {
 
     return (
       <Container>
-        <StateProvider initialState={this.initialState}>
+        <StateProvider>
           <Component {...pageProps} />
         </StateProvider>
       </Container>

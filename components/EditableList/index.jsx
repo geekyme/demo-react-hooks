@@ -39,14 +39,18 @@ export default function EditableList() {
     <ul>
       {errorState !== null && <div>{errorState}</div>}
       <form onSubmit={onAdd}>
-        <textarea value={inputState} onChange={onChange} />
-        <button type="submit">Submit</button>
+        <textarea data-testid="input" value={inputState} onChange={onChange} />
+        <button data-testid="submit" type="submit">
+          Submit
+        </button>
       </form>
       {state.agenda.items.map(item => {
         return (
           <div key={item.id}>
             <li>{item.text}</li>
-            <button onClick={onRemove(item)}>x</button>
+            <button data-testid="remove" onClick={onRemove(item)}>
+              x
+            </button>
           </div>
         );
       })}
