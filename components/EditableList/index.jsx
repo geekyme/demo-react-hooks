@@ -1,17 +1,18 @@
-import { useAppState } from "components/StateProvider";
 import { useState } from "react";
-import { add, remove } from "./actions";
+import { useAdd, useRemove } from "./actions";
+import { useAppState } from "components/StateProvider";
 
 export default function EditableList() {
-  const [appState, setAppState] = useAppState();
+  const [appState] = useAppState();
   const [inputState, setInputState] = useState("");
   const [errorState, setErrorState] = useState(null);
+  const add = useAdd();
+  const remove = useRemove();
 
   async function onAdd(e) {
     e.preventDefault();
     try {
-      const state = await add(inputState, appState);
-      setAppState(state);
+      await add(inputState);
       setInputState("");
       setErrorState(null);
     } catch (e) {
@@ -22,8 +23,7 @@ export default function EditableList() {
   function onRemove(item) {
     return async () => {
       try {
-        const state = await remove(item, appState);
-        setAppState(state);
+        await remove(item);
         setErrorState(null);
       } catch (e) {
         setErrorState(e.message);
