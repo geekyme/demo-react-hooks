@@ -8,6 +8,6 @@ const StateProvider = ({ initialState, children }) => (
 
 export const StateContext = createContext();
 
-export const useStateValue = () => useContext(StateContext);
+export const useAppState = () => useContext(StateContext);
 
 export default StateProvider;
