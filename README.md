@@ -5,7 +5,8 @@ A demo on how to use react hooks for everything. [DEMO](https://demo-react-hooks
 Concepts:
 
 - Using useState / useContext hooks to create a global observable store
-- Providing custom useAppState hook as an API to the store
+- Providing custom useAppContext hook as an API to the store
+- Store mutators are also passed down in context
 - Using useState hook as transient component state (errors, input state, etc.)
 - Using useEffect hook to run init state
 - Using custom hooks (useAdd / useRemove) to handle side effects.
