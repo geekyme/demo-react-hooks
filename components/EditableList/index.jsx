@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { init, useAdd, useRemove } from "./actions";
-import { useAppState } from "components/StateProvider";
+import { useAdd, useRemove } from "./actions";
+import { useAppContext } from "components/StateProvider";
 
 export default function EditableList() {
-  const [appState, setAppState] = useAppState();
+  const { state, actions } = useAppContext();
   const [inputState, setInputState] = useState("");
   const [errorState, setErrorState] = useState(null);
   const add = useAdd();
   const remove = useRemove();
 
   useEffect(function mount() {
-    init().then(setAppState);
+    actions.init();
   }, []);
 
   async function onAdd(e) {
@@ -46,9 +46,9 @@ export default function EditableList() {
         <textarea value={inputState} onChange={onChange} />
         <button type="submit">Submit</button>
       </form>
-      {appState.agenda.items.map(item => {
+      {state.agenda.items.map(item => {
         return (
-          <div>
+          <div key={item.id}>
             <li>{item.text}</li>
             <button onClick={onRemove(item)}>x</button>
           </div>
