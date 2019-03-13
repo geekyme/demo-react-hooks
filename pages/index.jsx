@@ -16,6 +16,14 @@ export default function AgendaPage() {
   function standaloneOnChange(e) {
     console.log("standalone", e.target.value);
   }
+
+  function customValidate(value) {
+    if (value !== "boo") {
+      return "Value is not boo";
+    } else {
+      return null;
+    }
+  }
   return (
     <div>
       <GlanceItems />
@@ -23,14 +31,14 @@ export default function AgendaPage() {
       <div>
         <h2>Form</h2>
         <Form onChange={onChange} data={initialState}>
-          <FormInput name="one" />
-          <FormInput name="two" />
+          <FormInput name="one" validate="number" />
+          <FormInput name="two" validate="number" />
           <button type="reset">Reset</button>
         </Form>
       </div>
       <div>
         <h2>Standalone</h2>
-        <FormInput onChange={standaloneOnChange} />
+        <FormInput onChange={standaloneOnChange} validate={customValidate} />
       </div>
     </div>
   );

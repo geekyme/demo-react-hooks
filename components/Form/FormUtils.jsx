@@ -2,6 +2,19 @@ import React, { useContext, useState } from "react";
 
 export const FormContext = React.createContext();
 
+export function useValidator(validate, value) {
+  if (typeof validate === "function") {
+    return validate(value);
+  } else if (validate === "number") {
+    if (isNaN(value)) {
+      return "Not a number";
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
 export function useChangeHandler(props) {
   const context = useContext(FormContext);
 

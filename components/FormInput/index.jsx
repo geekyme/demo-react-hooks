@@ -1,7 +1,15 @@
-import { useChangeHandler } from "../Form/FormUtils";
+import { useChangeHandler, useValidator } from "../Form/FormUtils";
 
 export default function FormInput(props) {
   const { onChange, value } = useChangeHandler(props);
+  const error = useValidator(props.validate, value);
 
-  return <input {...props} onChange={onChange} value={value} />;
+  const { validate, ...other } = props;
+
+  return (
+    <div>
+      <p>{error || <label>{error}</label>}</p>
+      <input {...other} onChange={onChange} value={value} />
+    </div>
+  );
 }
