@@ -1,5 +1,47 @@
 import React, { useContext, useState } from "react";
 
+function getValue(e, type) {
+  if (type === "checkbox") {
+    return e.target.checked;
+  } else {
+    return e.target.value;
+  }
+}
+
+function getInputValueProp(state, type) {
+  let prop, inputState;
+
+  if (type === "checkbox") {
+    prop = "checked";
+    inputState = state || false;
+  } else {
+    prop = "value";
+    inputState = state || "";
+  }
+
+  return {
+    [prop]: inputState
+  };
+}
+
+function setValue(value, type, other) {
+  if (type === "checkbox") {
+    return {
+      target: {
+        checked: value,
+        ...other
+      }
+    };
+  } else {
+    return {
+      target: {
+        value,
+        ...other
+      }
+    };
+  }
+}
+
 export const FormContext = React.createContext();
 
 export function useValidator(validate, value) {
@@ -15,13 +57,13 @@ export function useValidator(validate, value) {
     return null;
   }
 }
-export function useHandler(props) {
+export function useHandler(props, opts) {
   const context = useContext(FormContext);
 
   if (typeof context === "undefined") {
-    const [state, setState] = useState("");
+    const [state, setState] = useState(opts.initialState);
     function onChange(e) {
-      setState(e.target.value);
+      setState(getValue(e, opts.type));
       if (typeof props.onChange === "function") {
         props.onChange(e);
       }
@@ -29,9 +71,9 @@ export function useHandler(props) {
     return {
       onChange,
       onSetValue(value) {
-        onChange({ target: { value } });
+        onChange(setValue(value, opts.type));
       },
-      value: state
+      value: getInputValueProp(state, opts.type)
     };
   } else {
     if (typeof props.name === "undefined") {
@@ -39,14 +81,17 @@ export function useHandler(props) {
     }
 
     function onChange(e) {
-      context.onChange(e);
+      context.onChange({
+        name: props.name,
+        value: getValue(e, opts.type)
+      });
     }
     return {
       onChange,
       onSetValue(value) {
-        onChange({ target: { value, name: props.name } });
+        onChange(setValue(value, opts.type, { name: props.name }));
       },
-      value: context.data[props.name] || ""
+      value: getInputValueProp(context.data[props.name], opts.type)
     };
   }
 }
