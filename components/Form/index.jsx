@@ -26,6 +26,7 @@ export default function Form(props) {
       isInitialMount.current = false;
     } else if (stopRun.current) {
       stopRun.current = false;
+      props.onChange(state, () => {});
     } else {
       props.onChange(state, newState => {
         // this ensures that we do not end up in an infinite onChange loop

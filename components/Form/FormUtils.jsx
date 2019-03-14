@@ -44,7 +44,7 @@ function setValue(value, type, other) {
 
 export const FormContext = React.createContext();
 
-export function useValidator(validate, value) {
+export function useValidator(validate, { value }) {
   if (typeof validate === "function") {
     return validate(value);
   } else if (validate === "number") {
