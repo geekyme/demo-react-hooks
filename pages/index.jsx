@@ -10,15 +10,20 @@ export default function AgendaPage() {
     two: "world"
   };
 
-  function onChange(state, setState) {
-    console.log("form", state);
-
-    if (state["check_3"]) {
-      const newState = { ...state };
+  async function onChange(oldState, newState) {
+    // if check_3 is checked, uncheck everything else
+    // otherwise uncheck_3 if any other checkbox is checked
+    if (!oldState["check_3"] && newState["check_3"]) {
       delete newState["check_1"];
       delete newState["check_2"];
-      setState(newState);
+    } else if (
+      oldState["check_3"] &&
+      (newState["check_1"] || newState["check_2"])
+    ) {
+      delete newState["check_3"];
     }
+
+    return Promise.resolve(newState);
   }
 
   function standaloneOnChange(e) {
