@@ -25,7 +25,7 @@ export default function Form(props) {
   }
 
   function onReset() {
-    setState({});
+    setState(props.data || {});
   }
 
   return (
