@@ -3,7 +3,8 @@ import { useHandler } from "../Form/FormUtils";
 export default function FormRadio(props) {
   const { onChange, value } = useHandler(props, {
     initialState: props.value,
-    type: "radio"
+    type: "radio",
+    label: props.value
   });
 
   return (
