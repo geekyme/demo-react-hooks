@@ -14,7 +14,7 @@ export default function AgendaPage() {
     check_1: false,
     check_2: false,
     check_3: true,
-    radio_1: "male"
+    radio_1: "Singaporean / PR"
   };
 
   const graph = new Graph([
@@ -34,12 +34,40 @@ export default function AgendaPage() {
     {
       name: "radio_1",
       component: FormRadio,
-      props: { name: "radio_1", value: "female", id: "radio_female" }
+      props: { name: "radio_1", value: "Singaporean / PR", id: "radio_female" }
     },
     {
       name: "radio_1",
       component: FormRadio,
-      props: { name: "radio_1", value: "male", id: "radio_male" }
+      props: { name: "radio_1", value: "Foreigner", id: "radio_male" }
+    },
+    {
+      name: "sg_input",
+      component: FormInput,
+      props: {
+        name: "sg_input",
+        validate: str => {
+          if (str && str[0] === "S") {
+            return null;
+          } else {
+            return "Please enter NRIC";
+          }
+        }
+      }
+    },
+    {
+      name: "foreigner_input",
+      component: FormInput,
+      props: {
+        name: "foreigner_input",
+        validate: str => {
+          if (str && str[0] === "F") {
+            return null;
+          } else {
+            return "Please enter FIN";
+          }
+        }
+      }
     }
   ]);
 
@@ -75,6 +103,34 @@ export default function AgendaPage() {
     .to(graph.getNode("check_2"), (oldState, newState) => {
       if (!oldState["check_3"] && newState["check_3"]) {
         newState["check_2"] = false;
+      }
+
+      return newState;
+    });
+
+  graph
+    .getNode("radio_1", 0)
+    .to(graph.getNode("sg_input"), (oldState, newState) => {
+      if (
+        typeof oldState["sg_input"] === "undefined" &&
+        newState["radio_1"] === "Singaporean / PR"
+      ) {
+        newState["sg_input"] = "";
+        delete newState["foreigner_input"];
+      }
+
+      return newState;
+    });
+
+  graph
+    .getNode("radio_1", 1)
+    .to(graph.getNode("foreigner_input"), (oldState, newState) => {
+      if (
+        typeof oldState["foreigner_input"] === "undefined" &&
+        newState["radio_1"] === "Foreigner"
+      ) {
+        newState["foreigner_input"] = "";
+        delete newState["sg_input"];
       }
 
       return newState;

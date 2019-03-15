@@ -17,6 +17,7 @@ export default function FormInput(props) {
   return (
     <div>
       <p>{error || <label>{error}</label>}</p>
+      <label>{props.name}</label>
       <input {...other} onChange={onChange} {...value} />
       <button onClick={_onSetValue}>Change value</button>
     </div>
