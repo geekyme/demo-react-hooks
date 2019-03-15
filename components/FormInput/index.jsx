@@ -15,11 +15,19 @@ export default function FormInput(props) {
   }
 
   return (
-    <div>
-      <p>{error || <label>{error}</label>}</p>
+    <div style={{ margin: "20px 10px" }}>
       <label>{props.name}</label>
-      <input {...other} onChange={onChange} {...value} />
+      <br />
+      <input
+        style={{ marginTop: 5 }}
+        {...other}
+        onChange={onChange}
+        {...value}
+      />
       <button onClick={_onSetValue}>Change value</button>
+      <small style={{ color: "red", marginLeft: 10 }}>
+        {error || <label>{error}</label>}
+      </small>
     </div>
   );
 }
