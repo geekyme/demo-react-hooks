@@ -13,7 +13,7 @@ export default function FormCheckbox(props) {
   }
 
   return (
-    <div>
+    <div style={{ margin: "10px 20px" }}>
       <input {...props} onChange={onChange} type="checkbox" {...value} />
       <button onClick={_onSetValue}>Change value</button>
     </div>
