@@ -1,13 +1,14 @@
 import { useHandler } from "../Form/FormUtils";
 
 export default function FormRadio(props) {
-  const { onChange, _ } = useHandler(props, {
-    initialState: ""
+  const { onChange, value } = useHandler(props, {
+    initialState: props.value,
+    type: "radio"
   });
 
   return (
     <div>
-      <input {...props} type="radio" onChange={onChange} />
+      <input {...props} type="radio" onChange={onChange} {...value} />
       <label htmlFor={props.id}>{props.value}</label>
     </div>
   );

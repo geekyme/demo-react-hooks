@@ -11,7 +11,7 @@ function getValue(e, type) {
 function getInputValueProp(state, type) {
   let prop, inputState;
 
-  if (type === "checkbox") {
+  if (type === "checkbox" || type === "radio") {
     prop = "checked";
     inputState = state || false;
   } else {
@@ -25,7 +25,7 @@ function getInputValueProp(state, type) {
 }
 
 function setValue(value, type, other) {
-  if (type === "checkbox") {
+  if (type === "checkbox" || type === "radio") {
     return {
       target: {
         checked: value,
