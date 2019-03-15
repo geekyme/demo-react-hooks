@@ -95,6 +95,20 @@ export default function AgendaPage() {
           }
         };
       }
+    },
+    {
+      name: "sg_extra",
+      component: FormInput,
+      getProps() {
+        return { name: "sg_extra" };
+      }
+    },
+    {
+      name: "foreigner_extra",
+      component: FormInput,
+      getProps() {
+        return { name: "foreigner_extra" };
+      }
     }
   ]);
 
@@ -130,6 +144,34 @@ export default function AgendaPage() {
     .to(graph.getNode("check_2"), (oldState, newState) => {
       if (!oldState["check_3"] && newState["check_3"]) {
         newState["check_2"] = false;
+      }
+
+      return newState;
+    });
+
+  graph
+    .getNode("radio_1", 0)
+    .to(graph.getNode("sg_extra"), (oldState, newState) => {
+      if (
+        typeof newState["sg_extra"] === "undefined" &&
+        newState["radio_1"] === "Singaporean / PR"
+      ) {
+        delete newState["foreigner_extra"];
+        newState["sg_extra"] = "";
+      }
+
+      return newState;
+    });
+
+  graph
+    .getNode("radio_1", 1)
+    .to(graph.getNode("foreigner_extra"), (oldState, newState) => {
+      if (
+        typeof newState["foreigner_extra"] === "undefined" &&
+        newState["radio_1"] === "Foreigner"
+      ) {
+        delete newState["sg_extra"];
+        newState["foreigner_extra"] = "";
       }
 
       return newState;
