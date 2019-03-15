@@ -16,20 +16,35 @@ function Graph(items) {
   this.nodes = {};
 
   items.forEach(data => {
-    this.nodes[data.name] = new Node(data);
+    if (typeof this.nodes[data.name] === "undefined") {
+      this.nodes[data.name] = [new Node(data)];
+    } else {
+      this.nodes[data.name].push(new Node(data));
+    }
   });
 }
 
+Graph.prototype.getNode = function(name, index = 0) {
+  return this.nodes[name][index];
+};
+
 Graph.prototype.runChanges = function({ oldState, newState, changedNodes }) {
   changedNodes.forEach(name => {
-    this.nodes[name].out.forEach(condition => {
-      newState = condition(oldState, newState);
+    this.nodes[name].forEach(node => {
+      node.out.forEach(condition => {
+        newState = condition(oldState, newState);
+      });
     });
   });
 
-  const components = Object.keys(newState).map(name => {
-    const node = this.nodes[name];
-    return node.render();
+  const components = [];
+
+  Object.keys(newState).forEach(name => {
+    const nodes = this.nodes[name];
+
+    nodes.forEach(node => {
+      components.push(node.render());
+    });
   });
 
   return [newState, components];

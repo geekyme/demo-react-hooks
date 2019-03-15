@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { FormContext } from "./FormUtils";
 
 export default function Form(props) {
-  const isInitialMount = useRef(true);
   const [state, setState] = useState(props.data || {});
   const context = {
     data: state,
