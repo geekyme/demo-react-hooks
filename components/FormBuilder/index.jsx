@@ -1,14 +1,30 @@
+import { useState, useEffect } from "react";
 import Form from "components/Form";
-import FormInput from "components/FormInput";
-import FormCheckbox from "components/FormCheckbox";
-import FormRadio from "components/FormRadio";
 import FormEngine from "./FormEngine";
 
 export default function FormBuilder(props) {
+  const [components, setComponents] = useState();
+
+  useEffect(() => {
+    const [_, components] = FormEngine.render(
+      props.config,
+      props.initialState,
+      props.initialState
+    );
+
+    setComponents(components);
+  }, []);
+
   async function onChange(oldState, newState) {
-    const state = FormEngine.render({}, oldState, newState);
+    const [state, components] = FormEngine.render(
+      props.config,
+      oldState,
+      newState
+    );
 
     console.log(state);
+
+    setComponents(components);
 
     return Promise.resolve(state);
   }
@@ -19,13 +35,7 @@ export default function FormBuilder(props) {
 
   return (
     <Form onChange={onChange} onSubmit={onSubmit} data={props.initialState}>
-      <FormInput name="one" validate="number" />
-      <FormInput name="two" validate="number" />
-      <FormCheckbox name="check_1" />
-      <FormCheckbox name="check_2" />
-      <FormCheckbox name="check_3" />
-      <FormRadio id="radio_female" name="radio_1" value="female" />
-      <FormRadio id="radio_male" name="radio_1" value="male" />
+      {components}
       <button type="reset">Reset</button>
       <button type="submit">Submit</button>
     </Form>
