@@ -14,59 +14,86 @@ export default function AgendaPage() {
     check_1: false,
     check_2: false,
     check_3: true,
-    radio_1: "Singaporean / PR"
+    radio_1: "Singaporean / PR",
+    identity_input: ""
   };
 
   const graph = new Graph([
     {
       name: "one",
       component: FormInput,
-      props: { name: "one", validate: "number" }
+      getProps(oldState, newState) {
+        return { name: "one", validate: "number" };
+      }
     },
     {
       name: "two",
       component: FormInput,
-      props: { name: "two", validate: "number" }
-    },
-    { name: "check_1", component: FormCheckbox, props: { name: "check_1" } },
-    { name: "check_2", component: FormCheckbox, props: { name: "check_2" } },
-    { name: "check_3", component: FormCheckbox, props: { name: "check_3" } },
-    {
-      name: "radio_1",
-      component: FormRadio,
-      props: { name: "radio_1", value: "Singaporean / PR", id: "radio_female" }
-    },
-    {
-      name: "radio_1",
-      component: FormRadio,
-      props: { name: "radio_1", value: "Foreigner", id: "radio_male" }
-    },
-    {
-      name: "sg_input",
-      component: FormInput,
-      props: {
-        name: "sg_input",
-        validate: str => {
-          if (str && str[0] === "S") {
-            return null;
-          } else {
-            return "Please enter NRIC";
-          }
-        }
+      getProps(oldState, newState) {
+        return { name: "two", validate: "number" };
       }
     },
     {
-      name: "foreigner_input",
+      name: "check_1",
+      component: FormCheckbox,
+      getProps(oldState, newState) {
+        return { name: "check_1" };
+      }
+    },
+    {
+      name: "check_2",
+      component: FormCheckbox,
+      getProps(oldState, newState) {
+        return { name: "check_2" };
+      }
+    },
+    {
+      name: "check_3",
+      component: FormCheckbox,
+      getProps(oldState, newState) {
+        return { name: "check_3" };
+      }
+    },
+    {
+      name: "radio_1",
+      component: FormRadio,
+      getProps(oldState, newState) {
+        return {
+          name: "radio_1",
+          value: "Singaporean / PR",
+          id: "radio_female"
+        };
+      }
+    },
+    {
+      name: "radio_1",
+      component: FormRadio,
+      getProps(oldState, newState) {
+        return { name: "radio_1", value: "Foreigner", id: "radio_male" };
+      }
+    },
+    {
+      name: "identity_input",
       component: FormInput,
-      props: {
-        name: "foreigner_input",
-        validate: str => {
-          if (str && str[0] === "F") {
-            return null;
-          } else {
-            return "Please enter FIN";
+      getProps(oldState, newState) {
+        return {
+          name: "identity_input",
+          validate(str) {
+            if (newState["radio_1"] === "Foreigner") {
+              if (str && str[0] === "F") {
+                return null;
+              } else {
+                return "Please enter FIN";
+              }
+            } else {
+              if (str && str[0] === "S") {
+                return null;
+              } else {
+                return "Please enter NRIC";
+              }
+            }
           }
-        }
+        };
       }
     }
   ]);
@@ -103,34 +130,6 @@ export default function AgendaPage() {
     .to(graph.getNode("check_2"), (oldState, newState) => {
       if (!oldState["check_3"] && newState["check_3"]) {
         newState["check_2"] = false;
-      }
-
-      return newState;
-    });
-
-  graph
-    .getNode("radio_1", 0)
-    .to(graph.getNode("sg_input"), (oldState, newState) => {
-      if (
-        typeof oldState["sg_input"] === "undefined" &&
-        newState["radio_1"] === "Singaporean / PR"
-      ) {
-        newState["sg_input"] = "";
-        delete newState["foreigner_input"];
-      }
-
-      return newState;
-    });
-
-  graph
-    .getNode("radio_1", 1)
-    .to(graph.getNode("foreigner_input"), (oldState, newState) => {
-      if (
-        typeof oldState["foreigner_input"] === "undefined" &&
-        newState["radio_1"] === "Foreigner"
-      ) {
-        newState["foreigner_input"] = "";
-        delete newState["sg_input"];
       }
 
       return newState;
