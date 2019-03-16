@@ -4,6 +4,53 @@ import FormRadio from "components/FormRadio";
 
 import Graph from "components/FormBuilder/Graph";
 
+function generateNodes(count) {
+  const nodes = [];
+
+  while (nodes.length !== count) {
+    const name = "one_" + nodes.length;
+    nodes.push({
+      name,
+      component: FormInput,
+      getProps(oldState, newState) {
+        return { name, validate: "number" };
+      }
+    });
+  }
+
+  return nodes;
+}
+
+function generateRelationship(graph, count) {
+  let _count = 0;
+
+  // N nodes, 10 out-relationships per node
+  while (_count !== count) {
+    for (let i = 0; i < 10; i++) {
+      const rand1 = Math.floor(Math.random() * count);
+      const rand2 = Math.floor(Math.random() * count);
+      const node1 = "one_" + rand1;
+      const node2 = "one_" + rand2;
+
+      graph.getNode(node1).to(graph.getNode(node2), (oldState, newState) => {
+        newState[node2] = newState[node1];
+
+        return newState;
+      });
+    }
+
+    _count++;
+  }
+}
+
+export function getLargeConfig() {
+  const count = 1000;
+  const graph = new Graph(generateNodes(count));
+
+  generateRelationship(graph, count);
+
+  return graph;
+}
 export default function getFormConfig() {
   const graph = new Graph([
     {
