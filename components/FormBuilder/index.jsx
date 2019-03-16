@@ -2,17 +2,13 @@ import { useState, useEffect } from "react";
 import Form from "components/Form";
 
 export default function FormBuilder(props) {
-  const [components, setComponents] = useState();
-
-  useEffect(() => {
-    const [_, components] = props.config.runChanges({
+  const [components, setComponents] = useState(
+    props.config.runChanges({
       oldState: props.initialState,
       newState: props.initialState,
       changes: {}
-    });
-
-    setComponents(components);
-  }, []);
+    })[1]
+  );
 
   async function onChange(oldState, newState, changes) {
     const [state, components] = props.config.runChanges({
@@ -21,7 +17,7 @@ export default function FormBuilder(props) {
       changes
     });
 
-    console.log(state);
+    // console.log(state);
 
     setComponents(components);
 
