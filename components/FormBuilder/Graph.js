@@ -29,8 +29,8 @@ Graph.prototype.getNode = function(name, index = 0) {
   return this.nodes[name][index];
 };
 
-Graph.prototype.runChanges = function({ oldState, newState, changedNodes }) {
-  changedNodes.forEach(name => {
+Graph.prototype.runChanges = function({ oldState, newState, changes }) {
+  Object.keys(changes).forEach(name => {
     this.nodes[name].forEach(node => {
       node.out.forEach(condition => {
         newState = condition(oldState, newState);
