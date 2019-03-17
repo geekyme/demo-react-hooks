@@ -2,12 +2,14 @@ function Node(data) {
   this.data = data;
   this.out = new Map();
   this.key = data.id || data.name;
+  this.ui = null;
 }
 
 Node.prototype.render = function(oldState, newState) {
   const Component = this.data.component;
   const props = this.data.getProps(oldState, newState);
-  return <Component key={this.key} {...props} />;
+
+  this.ui = <Component key={this.key} {...props} />;
 };
 
 Node.prototype.to = function(node, condition) {
@@ -40,19 +42,20 @@ Graph.prototype.getNode = function(name, index = 0) {
 Graph.prototype.runChanges = function({ oldState, newState, changes }) {
   Object.keys(changes).forEach(name => {
     this.nodes[name].forEach(node => {
-      node.out.forEach(condition => {
+      node.out.forEach((condition, outNode) => {
         newState = condition(oldState, newState);
+        outNode.render(oldState, newState);
       });
+
+      node.render(oldState, newState);
     });
   });
 
-  const components = [];
+  const components = {};
 
   Object.keys(newState).forEach(name => {
-    const nodes = this.nodes[name];
-
-    nodes.forEach(node => {
-      components.push(node.render(oldState, newState));
+    this.nodes[name].forEach(node => {
+      components[node.key] = node.ui;
     });
   });
 
