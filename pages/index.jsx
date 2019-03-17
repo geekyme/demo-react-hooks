@@ -5,8 +5,8 @@ import FormInput from "components/FormInput";
 import getFormConfig, { getLargeConfig } from "./getFormConfig";
 
 export default function AgendaPage() {
-  const config = getLargeConfig();
   const initialState = {};
+  const config = getLargeConfig(initialState);
 
   Object.keys(config.nodes).forEach(k => {
     initialState[k] = "";
@@ -39,7 +39,7 @@ export default function AgendaPage() {
       <EditableList />
       <div>
         <h2>Form</h2>
-        <FormBuilder config={config} initialState={initialState} />
+        <FormBuilder config={config} />
       </div>
       <div>
         <h2>Standalone</h2>

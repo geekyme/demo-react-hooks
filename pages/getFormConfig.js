@@ -43,108 +43,111 @@ function generateRelationship(graph, count) {
   }
 }
 
-export function getLargeConfig() {
+export function getLargeConfig(initialState) {
   const count = 1000;
-  const graph = new Graph(generateNodes(count));
+  const graph = new Graph(generateNodes(count), initialState);
 
   generateRelationship(graph, count);
 
   return graph;
 }
-export default function getFormConfig() {
-  const graph = new Graph([
-    {
-      name: "one",
-      component: FormInput,
-      getProps(oldState, newState) {
-        return { name: "one", validate: "number" };
-      }
-    },
-    {
-      name: "two",
-      component: FormInput,
-      getProps(oldState, newState) {
-        return { name: "two", validate: "number" };
-      }
-    },
-    {
-      name: "check_1",
-      component: FormCheckbox,
-      getProps(oldState, newState) {
-        return { name: "check_1" };
-      }
-    },
-    {
-      name: "check_2",
-      component: FormCheckbox,
-      getProps(oldState, newState) {
-        return { name: "check_2" };
-      }
-    },
-    {
-      name: "check_3",
-      component: FormCheckbox,
-      getProps(oldState, newState) {
-        return { name: "check_3" };
-      }
-    },
-    {
-      name: "radio_1",
-      component: FormRadio,
-      getProps(oldState, newState) {
-        return {
-          name: "radio_1",
-          value: "Singaporean / PR",
-          id: "radio_female"
-        };
-      }
-    },
-    {
-      name: "radio_1",
-      component: FormRadio,
-      getProps(oldState, newState) {
-        return { name: "radio_1", value: "Foreigner", id: "radio_male" };
-      }
-    },
-    {
-      name: "identity_input",
-      component: FormInput,
-      getProps(oldState, newState) {
-        return {
-          name: "identity_input",
-          validate(str) {
-            if (newState["radio_1"] === "Foreigner") {
-              if (str && str[0] === "F") {
-                return null;
+export default function getFormConfig(initialState) {
+  const graph = new Graph(
+    [
+      {
+        name: "one",
+        component: FormInput,
+        getProps(oldState, newState) {
+          return { name: "one", validate: "number" };
+        }
+      },
+      {
+        name: "two",
+        component: FormInput,
+        getProps(oldState, newState) {
+          return { name: "two", validate: "number" };
+        }
+      },
+      {
+        name: "check_1",
+        component: FormCheckbox,
+        getProps(oldState, newState) {
+          return { name: "check_1" };
+        }
+      },
+      {
+        name: "check_2",
+        component: FormCheckbox,
+        getProps(oldState, newState) {
+          return { name: "check_2" };
+        }
+      },
+      {
+        name: "check_3",
+        component: FormCheckbox,
+        getProps(oldState, newState) {
+          return { name: "check_3" };
+        }
+      },
+      {
+        name: "radio_1",
+        component: FormRadio,
+        getProps(oldState, newState) {
+          return {
+            name: "radio_1",
+            value: "Singaporean / PR",
+            id: "radio_female"
+          };
+        }
+      },
+      {
+        name: "radio_1",
+        component: FormRadio,
+        getProps(oldState, newState) {
+          return { name: "radio_1", value: "Foreigner", id: "radio_male" };
+        }
+      },
+      {
+        name: "identity_input",
+        component: FormInput,
+        getProps(oldState, newState) {
+          return {
+            name: "identity_input",
+            validate(str) {
+              if (newState["radio_1"] === "Foreigner") {
+                if (str && str[0] === "F") {
+                  return null;
+                } else {
+                  return "Please enter FIN";
+                }
               } else {
-                return "Please enter FIN";
-              }
-            } else {
-              if (str && str[0] === "S") {
-                return null;
-              } else {
-                return "Please enter NRIC";
+                if (str && str[0] === "S") {
+                  return null;
+                } else {
+                  return "Please enter NRIC";
+                }
               }
             }
-          }
-        };
+          };
+        }
+      },
+      {
+        name: "sg_extra",
+        component: FormInput,
+        getProps() {
+          return { name: "sg_extra" };
+        }
+      },
+      {
+        name: "foreigner_extra",
+        component: FormInput,
+        getProps() {
+          return { name: "foreigner_extra" };
+        }
       }
-    },
-    {
-      name: "sg_extra",
-      component: FormInput,
-      getProps() {
-        return { name: "sg_extra" };
-      }
-    },
-    {
-      name: "foreigner_extra",
-      component: FormInput,
-      getProps() {
-        return { name: "foreigner_extra" };
-      }
-    }
-  ]);
+    ],
+    initialState
+  );
 
   graph
     .getNode("check_1")
