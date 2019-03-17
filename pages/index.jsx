@@ -5,24 +5,24 @@ import FormInput from "components/FormInput";
 import getFormConfig, { getLargeConfig } from "./getFormConfig";
 
 export default function AgendaPage() {
-  // const config = getLargeConfig();
-  // const initialState = {};
+  const config = getLargeConfig();
+  const initialState = {};
 
-  // Object.keys(config.nodes).forEach(k => {
-  //   initialState[k] = "";
-  // });
+  Object.keys(config.nodes).forEach(k => {
+    initialState[k] = "";
+  });
 
-  const initialState = {
-    one: "hello",
-    two: "world",
-    check_1: false,
-    check_2: false,
-    check_3: true,
-    radio_1: "Singaporean / PR",
-    identity_input: ""
-  };
+  // const initialState = {
+  //   one: "hello",
+  //   two: "world",
+  //   check_1: false,
+  //   check_2: false,
+  //   check_3: true,
+  //   radio_1: "Singaporean / PR",
+  //   identity_input: ""
+  // };
 
-  const config = getFormConfig();
+  // const config = getFormConfig();
 
   const newInitialState = config.runChanges({
     oldState: {},

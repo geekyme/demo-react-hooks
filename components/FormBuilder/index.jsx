@@ -13,8 +13,6 @@ export default function FormBuilder(props) {
 
     setChangeCount(changeCount + 1);
 
-    console.log(state);
-
     return Promise.resolve(state);
   }
 
