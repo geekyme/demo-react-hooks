@@ -90,6 +90,7 @@ export default function getFormConfig() {
     },
     {
       name: "radio_1",
+      id: "radio_sg",
       component: FormRadio,
       getProps(oldState, newState) {
         return {
@@ -101,6 +102,7 @@ export default function getFormConfig() {
     },
     {
       name: "radio_1",
+      id: "radio_fr",
       component: FormRadio,
       getProps(oldState, newState) {
         return { name: "radio_1", value: "Foreigner", id: "radio_fr" };

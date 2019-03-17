@@ -24,6 +24,12 @@ export default function AgendaPage() {
 
   const config = getFormConfig();
 
+  const newInitialState = config.runChanges({
+    oldState: {},
+    newState: initialState,
+    changes: initialState
+  });
+
   function standaloneOnChange(e) {
     console.log("standalone", e.target.value);
   }
@@ -41,7 +47,7 @@ export default function AgendaPage() {
       <EditableList />
       <div>
         <h2>Form</h2>
-        <FormBuilder config={config} initialState={initialState} />
+        <FormBuilder config={config} initialState={newInitialState} />
       </div>
       <div>
         <h2>Standalone</h2>
