@@ -3,7 +3,7 @@ function Node(data) {
   this.out = new Map();
 }
 
-Node.prototype.render = function(oldState, newState) {
+Node.prototype.render = function({ oldState, newState }) {
   const Component = this.data.component;
   const props = this.data.getProps(oldState, newState);
   return <Component key={props.id || props.name} {...props} />;
@@ -25,7 +25,7 @@ function Graph(items, initialState) {
       this.nodes[data.name].push(node);
     }
 
-    const key = data.name + this.nodes[data.name].length;
+    const key = data.name + (this.nodes[data.name].length - 1);
     this.components[key] = node.render({
       oldState: initialState,
       newState: initialState

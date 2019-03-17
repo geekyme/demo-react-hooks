@@ -5,22 +5,24 @@ import FormInput from "components/FormInput";
 import getFormConfig, { getLargeConfig } from "./getFormConfig";
 
 export default function AgendaPage() {
-  const initialState = {};
-  const config = getLargeConfig(initialState);
+  // const initialState = {};
+  // const config = getLargeConfig(initialState);
 
-  Object.keys(config.nodes).forEach(k => {
-    initialState[k] = "";
-  });
+  // Object.keys(config.nodes).forEach(k => {
+  //   initialState[k] = "";
+  // });
 
-  // const initialState = {
-  //   one: "hello",
-  //   two: "world",
-  //   check_1: false,
-  //   check_2: false,
-  //   check_3: true,
-  //   radio_1: "Singaporean / PR",
-  //   identity_input: ""
-  // };
+  const initialState = {
+    one: "hello",
+    two: "world",
+    check_1: false,
+    check_2: false,
+    check_3: true,
+    radio_1: "Singaporean / PR",
+    identity_input: ""
+  };
+
+  const config = getFormConfig(initialState);
 
   function standaloneOnChange(e) {
     console.log("standalone", e.target.value);
@@ -39,7 +41,7 @@ export default function AgendaPage() {
       <EditableList />
       <div>
         <h2>Form</h2>
-        <FormBuilder config={config} />
+        <FormBuilder config={config} initialState={initialState} />
       </div>
       <div>
         <h2>Standalone</h2>
