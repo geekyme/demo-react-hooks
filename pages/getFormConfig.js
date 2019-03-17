@@ -213,5 +213,17 @@ export default function getFormConfig() {
       return newState;
     });
 
+  graph
+    .getNode("radio_1", 0)
+    .to(graph.getNode("identity_input"), (oldState, newState) => {
+      return newState;
+    });
+
+  graph
+    .getNode("radio_1", 1)
+    .to(graph.getNode("identity_input"), (oldState, newState) => {
+      return newState;
+    });
+
   return graph;
 }
