@@ -6,7 +6,7 @@ function Node(data) {
 Node.prototype.render = function(oldState, newState) {
   const Component = this.data.component;
   const props = this.data.getProps(oldState, newState);
-  return <Component {...props} />;
+  return <Component key={props.id || props.name} {...props} />;
 };
 
 Node.prototype.to = function(node, condition) {
