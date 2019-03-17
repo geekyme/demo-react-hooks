@@ -18,7 +18,7 @@ Node.prototype.to = function(node, condition) {
 
 function Graph(items) {
   this.nodes = {};
-  this.components = {};
+  this.components = [];
 
   items.forEach(data => {
     if (typeof this.nodes[data.name] === "undefined") {
@@ -51,11 +51,11 @@ Graph.prototype.runChanges = function({ oldState, newState, changes }) {
     });
   });
 
-  const components = {};
+  const components = [];
 
   Object.keys(newState).forEach(name => {
     this.nodes[name].forEach(node => {
-      components[node.key] = node.ui;
+      components.push(node.ui);
     });
   });
 
@@ -65,7 +65,7 @@ Graph.prototype.runChanges = function({ oldState, newState, changes }) {
 };
 
 Graph.prototype.ui = function() {
-  return Object.values(this.components);
+  return this.components;
 };
 
 export default Graph;
