@@ -29,6 +29,12 @@ Graph.prototype.getNode = function(name, index = 0) {
   return this.nodes[name][index];
 };
 
+// TODO: need to rethink this together with UI changes
+// at the moment, we are only able to modify the form state based on inputs
+// however we should also be able to apply node changes.
+//
+// eg. if a node A's value is xxx, then node B's validator should change to xxx
+// therefore we need to be able to apply new props on the node
 Graph.prototype.runChanges = function({ oldState, newState, changes }) {
   Object.keys(changes).forEach(name => {
     this.nodes[name].forEach(node => {
