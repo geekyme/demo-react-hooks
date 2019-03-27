@@ -1,8 +1,10 @@
 import { useHandler, useValidator } from "../Form/FormUtils";
 
 export default function FormInput(props) {
-  const { onChange, onSetValue, value, pristine } = useHandler(props, {
-    initialState: ""
+  const { onChange, onSetValue, value, pristine } = useHandler({
+    name: props.name,
+    onChange: props.onChange,
+    initialState: props.value
   });
 
   const error = useValidator({

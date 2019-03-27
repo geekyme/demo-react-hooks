@@ -1,13 +1,12 @@
 import { useHandler } from "../Form/FormUtils";
 
 export default function FormRadio(props) {
-  const { onChange, value } = useHandler(props, {
+  const { onChange, value } = useHandler({
+    name: props.name,
+    onChange: props.onChange,
     initialState: props.value,
     transformValue(value) {
       return value === props.value;
-    },
-    getElementValue(e) {
-      return e.target.checked;
     }
   });
 
