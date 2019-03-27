@@ -2,17 +2,34 @@ import React, { useContext, useState, useEffect } from "react";
 
 export const FormContext = React.createContext();
 
-export function useValidator(validate, value) {
-  if (typeof validate === "function") {
-    return validate(value);
-  } else if (validate === "number") {
-    if (isNaN(value)) {
-      return "Not a number";
+export function useValidator({ name, validate, value }) {
+  const context = useContext(FormContext);
+  const error = getError(validate, value);
+
+  useEffect(() => {
+    if (typeof context !== "undefined") {
+      if (error !== null) {
+        context.setError({ name, error });
+      } else {
+        context.removeError({ name });
+      }
+    }
+  }, [value]);
+
+  return error;
+
+  function getError(validate, value) {
+    if (typeof validate === "function") {
+      return validate(value);
+    } else if (validate === "number") {
+      if (isNaN(value)) {
+        return "Not a number";
+      } else {
+        return null;
+      }
     } else {
       return null;
     }
-  } else {
-    return null;
   }
 }
 

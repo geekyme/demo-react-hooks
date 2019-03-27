@@ -16,8 +16,9 @@ export default function FormBuilder(props) {
     return Promise.resolve(state);
   }
 
-  function onSubmit(state) {
+  function onSubmit(state, errors) {
     console.log("form", state);
+    console.log("errors", errors);
   }
 
   return (

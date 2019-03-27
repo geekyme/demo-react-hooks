@@ -3,10 +3,27 @@ import { FormContext } from "./FormUtils";
 
 export default function Form(props) {
   const [state, setState] = useState(props.data || {});
+  const [errors, setErrors] = useState({});
   const context = {
     data: state,
-    onChange: onChange
+    errors,
+    onChange: onChange,
+    setError: setError,
+    removeError: removeError
   };
+
+  function removeError({ name }) {
+    delete errors[name];
+
+    setErrors(errors);
+  }
+
+  function setError({ name, error }) {
+    setErrors({
+      ...errors,
+      [name]: error
+    });
+  }
 
   async function onChange({ name, value }) {
     const changes = { [name]: value };
@@ -22,7 +39,7 @@ export default function Form(props) {
 
   function onSubmit(e) {
     e.preventDefault();
-    props.onSubmit(state);
+    props.onSubmit(state, errors);
   }
 
   function onReset() {
