@@ -1,53 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 
-function getValue(e, type) {
-  if (type === "checkbox") {
-    return e.target.checked;
-  } else {
-    return e.target.value;
-  }
-}
-
-function getInputValueProp(state, type, label) {
-  let prop, inputState;
-
-  if (type === "checkbox") {
-    prop = "checked";
-    inputState = state || false;
-  } else if (type === "radio") {
-    prop = "checked";
-    inputState = state === label;
-  } else {
-    prop = "value";
-    inputState = state || "";
-  }
-
-  return {
-    [prop]: inputState
-  };
-}
-
-function setValue(value, type, other) {
-  if (type === "checkbox" || type === "radio") {
-    return {
-      target: {
-        checked: value,
-        ...other
-      }
-    };
-  } else {
-    return {
-      target: {
-        value,
-        ...other
-      }
-    };
-  }
-}
-
 export const FormContext = React.createContext();
 
-export function useValidator(validate, { value }) {
+export function useValidator(validate, value) {
   if (typeof validate === "function") {
     return validate(value);
   } else if (validate === "number") {
@@ -60,6 +15,7 @@ export function useValidator(validate, { value }) {
     return null;
   }
 }
+
 export function useHandler(props, opts) {
   const [pristine, setPristine] = useState(true);
   const context = useContext(FormContext);
@@ -70,17 +26,21 @@ export function useHandler(props, opts) {
       if (pristine) {
         setPristine(false);
       }
-      setState(getValue(e, opts.type));
+      const state = opts.getElementValue
+        ? opts.getElementValue(e)
+        : e.target.value;
+      setState(state);
       if (typeof props.onChange === "function") {
         props.onChange(e);
       }
     }
+
     return {
       onChange,
-      onSetValue(value) {
-        onChange(setValue(value, opts.type));
+      onSetValue(e) {
+        onChange(e);
       },
-      value: getInputValueProp(state, opts.type, opts.label),
+      value: opts.transformValue ? opts.transformValue(state) : state,
       pristine
     };
   } else {
@@ -92,17 +52,24 @@ export function useHandler(props, opts) {
       if (pristine) {
         setPristine(false);
       }
+
+      const state = opts.getElementValue
+        ? opts.getElementValue(e)
+        : e.target.value;
       context.onChange({
         name: props.name,
-        value: getValue(e, opts.type)
+        value: state
       });
     }
+
+    const state = context.data[props.name];
+
     return {
       onChange,
-      onSetValue(value) {
-        onChange(setValue(value, opts.type, { name: props.name }));
+      onSetValue(e) {
+        onChange(e, name);
       },
-      value: getInputValueProp(context.data[props.name], opts.type, opts.label),
+      value: opts.transformValue ? opts.transformValue(state) : state,
       pristine
     };
   }
