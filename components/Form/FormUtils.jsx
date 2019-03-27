@@ -34,10 +34,10 @@ export function useValidator({ name, validate, value }) {
 }
 
 export function useHandler(opts) {
-  const [pristine, setPristine] = useState(true);
   const context = useContext(FormContext);
 
   if (typeof context === "undefined") {
+    const [pristine, setPristine] = useState(true);
     const [state, setState] = useState(opts.initialState);
     function onChange(e) {
       if (pristine) {
@@ -65,9 +65,11 @@ export function useHandler(opts) {
       throw new Error("You must supply a 'name' prop if you are using <Form>");
     }
 
+    const pristine = !context.dirties[opts.name];
+
     function onChange(e) {
       if (pristine) {
-        setPristine(false);
+        context.setDirty(opts.name);
       }
 
       const state = opts.getElementValue
