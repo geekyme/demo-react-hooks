@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 
 export const FormContext = React.createContext();
 
@@ -39,10 +39,19 @@ export function useHandler(opts) {
   if (typeof context === "undefined") {
     const [pristine, setPristine] = useState(true);
     const [state, setState] = useState(opts.initialState);
-    function onChange(e) {
-      if (pristine) {
-        setPristine(false);
+    const isInitialMount = useRef(true);
+
+    useEffect(() => {
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+      } else {
+        if (pristine) {
+          setPristine(false);
+        }
       }
+    }, [state]);
+
+    function onChange(e) {
       const state = opts.getElementValue
         ? opts.getElementValue(e)
         : e.target.value;
@@ -64,14 +73,10 @@ export function useHandler(opts) {
     if (typeof opts.name === "undefined") {
       throw new Error("You must supply a 'name' prop if you are using <Form>");
     }
-
+    const isInitialMount = useRef(true);
     const pristine = !context.dirties[opts.name];
 
     function onChange(e) {
-      if (pristine) {
-        context.setDirty(opts.name);
-      }
-
       const state = opts.getElementValue
         ? opts.getElementValue(e)
         : e.target.value;
@@ -85,6 +90,16 @@ export function useHandler(opts) {
       typeof context.data[opts.name] === "undefined"
         ? opts.initialState
         : context.data[opts.name];
+
+    useEffect(() => {
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+      } else {
+        if (pristine) {
+          context.setDirty(opts.name);
+        }
+      }
+    }, [state]);
 
     return {
       onChange,
