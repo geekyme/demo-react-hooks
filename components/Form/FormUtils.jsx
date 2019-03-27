@@ -81,7 +81,10 @@ export function useHandler(opts) {
       });
     }
 
-    const state = context.data[opts.name] || opts.initialState;
+    const state =
+      typeof context.data[opts.name] === "undefined"
+        ? opts.initialState
+        : context.data[opts.name];
 
     return {
       onChange,
