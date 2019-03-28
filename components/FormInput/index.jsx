@@ -1,9 +1,8 @@
 import { useHandler, useValidator } from "../Form/FormUtils";
 
 export default function FormInput(props) {
-  const { onChange, setValue, value, pristine } = useHandler({
+  const { setValue, value, pristine } = useHandler({
     name: props.name,
-    onChange: props.onChange,
     initialState: props.value
   });
 
@@ -13,16 +12,16 @@ export default function FormInput(props) {
     value
   });
 
+  function onChange(e) {
+    setValue(e.target.value);
+    props.onChange(e.target.value);
+  }
+
   const { validate, ...other } = props;
 
   function _setValue(e) {
     e.preventDefault();
-    const value = "boo";
-    setValue({
-      target: {
-        value
-      }
-    });
+    setValue("boo");
   }
 
   return (

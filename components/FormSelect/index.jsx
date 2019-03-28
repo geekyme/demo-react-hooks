@@ -2,25 +2,17 @@ import { useHandler } from "../Form/FormUtils";
 import ReactSelect from "react-select";
 
 export default function Select(props) {
-  const { onChange, value } = useHandler({
+  const { setValue, value } = useHandler({
     name: props.name,
-    onChange: props.onChange,
     initialState: props.value
   });
 
-  function onReactSelectChange(selected) {
-    onChange({
-      target: {
-        value: selected
-      }
-    });
+  function onChange(selected) {
+    setValue(selected);
+    props.onChange(selected);
   }
 
   return (
-    <ReactSelect
-      value={value}
-      onChange={onReactSelectChange}
-      options={props.options}
-    />
+    <ReactSelect value={value} onChange={onChange} options={props.options} />
   );
 }

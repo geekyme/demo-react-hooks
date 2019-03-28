@@ -51,20 +51,9 @@ export function useHandler(opts) {
       }
     }, [state]);
 
-    function onChange(e) {
-      const state = opts.getElementValue
-        ? opts.getElementValue(e)
-        : e.target.value;
-      setState(state);
-      if (typeof opts.onChange === "function") {
-        opts.onChange(e);
-      }
-    }
-
     return {
-      onChange,
-      setValue(e) {
-        onChange(e);
+      setValue(state) {
+        setState(state);
       },
       value: opts.transformValue ? opts.transformValue(state) : state,
       pristine
@@ -75,16 +64,6 @@ export function useHandler(opts) {
     }
     const isInitialMount = useRef(true);
     const pristine = !context.dirties[opts.name];
-
-    function onChange(e) {
-      const state = opts.getElementValue
-        ? opts.getElementValue(e)
-        : e.target.value;
-      context.onChange({
-        name: opts.name,
-        value: state
-      });
-    }
 
     const state =
       typeof context.data[opts.name] === "undefined"
@@ -98,13 +77,20 @@ export function useHandler(opts) {
         if (pristine) {
           context.setDirty(opts.name);
         }
+
+        context.onChange({
+          name: opts.name,
+          value: state
+        });
       }
     }, [state]);
 
     return {
-      onChange,
-      setValue(e) {
-        onChange(e, name);
+      setValue(state) {
+        context.onChange({
+          name: opts.name,
+          value: state
+        });
       },
       value: opts.transformValue ? opts.transformValue(state) : state,
       pristine
