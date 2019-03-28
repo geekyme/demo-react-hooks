@@ -91,7 +91,7 @@ export default function getFormConfig() {
           name: "fullName",
           options,
           selectValue: options[4],
-          inputValue: "Bob",
+          inputValue: "1",
           validate
         };
       }

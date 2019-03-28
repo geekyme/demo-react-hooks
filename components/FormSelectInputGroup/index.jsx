@@ -1,9 +1,10 @@
 import { DumbFormInput } from "components/FormInput";
 import { DumbFormSelect } from "components/FormSelect";
 import { useHandler, useValidator } from "../Form/FormUtils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function FormSelectInputGroup(props) {
+  const isInitialMount = useRef(true);
   const [inputState, setInputState] = useState(props.inputValue);
   const [selectState, setSelectState] = useState(props.selectValue);
   const { setValue, value, pristine } = useHandler({
@@ -18,7 +19,11 @@ export default function FormSelectInputGroup(props) {
   });
 
   useEffect(() => {
-    setValue(buildState(selectState, inputState));
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      setValue(buildState(selectState, inputState));
+    }
   }, [inputState, selectState]);
 
   function onSelectChange(selected) {
