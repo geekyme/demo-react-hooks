@@ -78,7 +78,7 @@ export function useHandler(opts) {
           context.setDirty(opts.name);
         }
 
-        context.onChange({
+        context.setField({
           name: opts.name,
           value: state
         });
@@ -87,7 +87,7 @@ export function useHandler(opts) {
 
     return {
       setValue(state) {
-        context.onChange({
+        context.setField({
           name: opts.name,
           value: state
         });

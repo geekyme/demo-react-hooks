@@ -9,7 +9,7 @@ export default function Form(props) {
     data: state,
     dirties,
     errors,
-    onChange: onChange,
+    setField: setField,
     setError: setError,
     removeError: removeError,
     setDirty: setDirty
@@ -39,7 +39,7 @@ export default function Form(props) {
     }));
   }
 
-  async function onChange({ name, value }) {
+  async function setField({ name, value }) {
     const changes = { [name]: value };
     const newState = { ...state, [name]: value };
     const alteredNewState = await props.onChange(state, newState, changes);
