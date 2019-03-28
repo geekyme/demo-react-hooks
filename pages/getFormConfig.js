@@ -2,6 +2,7 @@ import FormInput from "components/FormInput";
 import FormCheckbox from "components/FormCheckbox";
 import FormRadio from "components/FormRadio";
 import FormSelect from "components/FormSelect";
+import FormSelectInputGroup from "components/FormSelectInputGroup";
 
 import Graph from "components/FormBuilder/Graph";
 
@@ -64,6 +65,35 @@ export default function getFormConfig() {
           { value: "vanilla", label: "Vanilla" }
         ];
         return { name: "select", options, value: options[0] };
+      }
+    },
+    {
+      name: "fullName",
+      component: FormSelectInputGroup,
+      getProps(oldState, newState) {
+        const options = [
+          { value: "Mr", label: "Mr" },
+          { value: "Mrs", label: "Mrs" },
+          { value: "Ms", label: "Ms" },
+          { value: "Mdm", label: "Mdm" },
+          { value: "Dr", label: "Dr" }
+        ];
+
+        function validate(value) {
+          if (isNaN(value.input)) {
+            return null;
+          } else {
+            return "Is that a proper name?";
+          }
+        }
+
+        return {
+          name: "fullName",
+          options,
+          selectValue: options[4],
+          inputValue: "Bob",
+          validate
+        };
       }
     },
     {

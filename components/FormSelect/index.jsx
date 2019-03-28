@@ -1,7 +1,17 @@
 import { useHandler } from "../Form/FormUtils";
-import ReactSelect from "react-select";
+import Select from "react-select";
 
-export default function Select(props) {
+export function DumbFormSelect(props) {
+  return (
+    <Select
+      value={props.value}
+      onChange={props.onChange}
+      options={props.options}
+    />
+  );
+}
+
+export default function FormSelect(props) {
   const { setValue, value } = useHandler({
     name: props.name,
     initialState: props.value
@@ -9,10 +19,12 @@ export default function Select(props) {
 
   function onChange(selected) {
     setValue(selected);
-    props.onChange(selected);
+    if (typeof props.onChange === "function") {
+      props.onChange(selected);
+    }
   }
 
   return (
-    <ReactSelect value={value} onChange={onChange} options={props.options} />
+    <DumbFormSelect value={value} onChange={onChange} options={props.options} />
   );
 }

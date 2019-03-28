@@ -19,6 +19,10 @@ export default function AgendaPage() {
     });
   } else {
     initialState = {
+      fullName: {
+        selected: { value: "Dr", label: "Dr" },
+        input: "Bob"
+      },
       select: { value: "chocolate", label: "Chocolate" },
       one: "hello",
       two: "world",
