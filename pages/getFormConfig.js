@@ -1,6 +1,7 @@
 import FormInput from "components/FormInput";
 import FormCheckbox from "components/FormCheckbox";
 import FormRadio from "components/FormRadio";
+import FormSelect from "components/FormSelect";
 
 import Graph from "components/FormBuilder/Graph";
 
@@ -53,6 +54,18 @@ export function getLargeConfig() {
 }
 export default function getFormConfig() {
   const graph = new Graph([
+    {
+      name: "select",
+      component: FormSelect,
+      getProps(oldState, newState) {
+        const options = [
+          { value: "chocolate", label: "Chocolate" },
+          { value: "strawberry", label: "Strawberry" },
+          { value: "vanilla", label: "Vanilla" }
+        ];
+        return { name: "select", options, value: options[0] };
+      }
+    },
     {
       name: "one",
       component: FormInput,
