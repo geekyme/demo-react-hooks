@@ -1,7 +1,7 @@
 import { useHandler } from "../Form/FormUtils";
 
 export default function FormCheckbox(props) {
-  const { onChange, onSetValue, value } = useHandler({
+  const { onChange, setValue, value } = useHandler({
     name: props.name,
     onChange: props.onChange,
     initialState: props.value,
@@ -10,9 +10,9 @@ export default function FormCheckbox(props) {
     }
   });
 
-  function _onSetValue(e) {
+  function _setValue(e) {
     e.preventDefault();
-    onSetValue({
+    setValue({
       target: {
         checked: !value
       }
@@ -22,7 +22,7 @@ export default function FormCheckbox(props) {
   return (
     <div style={{ margin: "10px 20px" }}>
       <input {...props} onChange={onChange} type="checkbox" checked={value} />
-      <button onClick={_onSetValue}>Change value</button>
+      <button onClick={_setValue}>Change value</button>
     </div>
   );
 }
