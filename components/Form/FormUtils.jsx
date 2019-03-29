@@ -2,6 +2,82 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 
 export const FormContext = React.createContext();
 
+export function useStore(data) {
+  const [state, setState] = useState(data || {});
+  const [errors, setErrors] = useState({});
+  const [dirties, setDirties] = useState({});
+  const store = {
+    data: state,
+    dirties,
+    errors,
+    setField: setField,
+    setError: setError,
+    removeError: removeError,
+    setDirty: setDirty,
+    resetData: resetData,
+    setAllDirty: setAllDirty
+  };
+
+  function setAllDirty() {
+    const names = Object.keys(state);
+    const dirties = names.reduce((acc, name) => {
+      acc[name] = true;
+      return acc;
+    }, {});
+
+    setDirties(dirties);
+  }
+
+  function setDirty(name) {
+    setDirties(prevState => ({
+      ...prevState,
+      [name]: true
+    }));
+  }
+
+  function removeError({ name }) {
+    setErrors(prevState => {
+      delete prevState[name];
+
+      return {
+        ...prevState
+      };
+    });
+  }
+
+  function setError({ name, error }) {
+    setErrors(prevState => ({
+      ...prevState,
+      [name]: error
+    }));
+  }
+
+  function resetData(data) {
+    setState(data || {});
+  }
+
+  async function setField({ name, value }) {
+    const changes = { [name]: value };
+    const newState = { ...state, [name]: value };
+
+    if (typeof interceptChange === "function") {
+      const alteredNewState = await interceptChange(state, newState, changes);
+
+      if (typeof alteredNewState !== "undefined") {
+        setState(alteredNewState);
+        return;
+      }
+    }
+
+    setState(prevState => ({
+      ...prevState,
+      ...changes
+    }));
+  }
+
+  return store;
+}
+
 export function useValidator({ name, validate, value }) {
   const context = useContext(FormContext);
   const error = getError(validate, value);
@@ -33,67 +109,80 @@ export function useValidator({ name, validate, value }) {
   }
 }
 
-export function useHandler(opts) {
-  const context = useContext(FormContext);
+function useStoreStrategy(opts) {
+  const { name, store, initialState, transformValue } = opts;
+  if (typeof name === "undefined") {
+    throw new Error("You must supply a 'name' prop if you are using <Form>");
+  }
 
-  if (typeof context === "undefined") {
-    const [pristine, setPristine] = useState(true);
-    const [state, setState] = useState(opts.initialState);
-    const isInitialMount = useRef(true);
+  const isInitialMount = useRef(true);
+  const pristine = !store.dirties[name];
 
-    useEffect(() => {
-      if (isInitialMount.current) {
-        isInitialMount.current = false;
-      } else {
-        if (pristine) {
-          setPristine(false);
-        }
+  const state =
+    typeof store.data[name] === "undefined" ? initialState : store.data[name];
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      if (pristine) {
+        store.setDirty(opts.name);
       }
-    }, [state]);
 
-    return {
-      setValue(state) {
-        setState(state);
-      },
-      value: opts.transformValue ? opts.transformValue(state) : state,
-      pristine
-    };
-  } else {
-    if (typeof opts.name === "undefined") {
-      throw new Error("You must supply a 'name' prop if you are using <Form>");
+      store.setField({
+        name: opts.name,
+        value: state
+      });
     }
-    const isInitialMount = useRef(true);
-    const pristine = !context.dirties[opts.name];
+  }, [state]);
 
-    const state =
-      typeof context.data[opts.name] === "undefined"
-        ? opts.initialState
-        : context.data[opts.name];
+  return {
+    setValue(state) {
+      store.setField({
+        name,
+        value: state
+      });
+    },
+    value: transformValue ? transformValue(state) : state,
+    pristine
+  };
+}
 
-    useEffect(() => {
-      if (isInitialMount.current) {
-        isInitialMount.current = false;
-      } else {
-        if (pristine) {
-          context.setDirty(opts.name);
-        }
+function useLocalStateStrategy(opts) {
+  const { transformValue, initialState } = opts;
+  const [pristine, setPristine] = useState(true);
+  const [state, setState] = useState(initialState);
+  const isInitialMount = useRef(true);
 
-        context.setField({
-          name: opts.name,
-          value: state
-        });
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      if (pristine) {
+        setPristine(false);
       }
-    }, [state]);
+    }
+  }, [state]);
 
-    return {
-      setValue(state) {
-        context.setField({
-          name: opts.name,
-          value: state
-        });
-      },
-      value: opts.transformValue ? opts.transformValue(state) : state,
-      pristine
-    };
+  return {
+    setValue(state) {
+      setState(state);
+    },
+    value: transformValue ? transformValue(state) : state,
+    pristine
+  };
+}
+
+export function useHandler(opts) {
+  if (typeof opts.store !== "undefined") {
+    return useStoreStrategy(opts);
+  } else {
+    const context = useContext(FormContext);
+
+    if (typeof context !== "undefined") {
+      return useStoreStrategy({ ...opts, store: context });
+    } else {
+      return useLocalStateStrategy(opts);
+    }
   }
 }

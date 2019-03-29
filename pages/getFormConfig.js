@@ -80,7 +80,7 @@ export default function getFormConfig() {
         ];
 
         function validate(value) {
-          if (isNaN(value.input)) {
+          if (isNaN(value)) {
             return null;
           } else {
             return "Is that a proper name?";

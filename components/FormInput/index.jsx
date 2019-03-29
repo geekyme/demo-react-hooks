@@ -22,10 +22,11 @@ export function DumbFormInput(props) {
 }
 
 export default function FormInput(props) {
-  const { name, validate, ...other } = props;
+  const { name, validate, store, ...other } = props;
   const { setValue, value, pristine } = useHandler({
-    name: props.name,
-    initialState: props.value
+    name,
+    initialState: props.value,
+    store
   });
 
   const error = useValidator({

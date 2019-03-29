@@ -20,8 +20,8 @@ export default function AgendaPage() {
   } else {
     initialState = {
       fullName: {
-        selected: { value: "Dr", label: "Dr" },
-        input: "1"
+        title: "Dr",
+        name: "1"
       },
       select: { value: "chocolate", label: "Chocolate" },
       one: "hello",

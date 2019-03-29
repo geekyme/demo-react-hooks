@@ -5,6 +5,7 @@ export default function FormRadio(props) {
     name: props.name,
     onChange: props.onChange,
     initialState: props.value,
+    store: props.store,
     transformValue(value) {
       return value === props.value;
     }

@@ -14,7 +14,8 @@ export function DumbFormSelect(props) {
 export default function FormSelect(props) {
   const { setValue, value } = useHandler({
     name: props.name,
-    initialState: props.value
+    initialState: props.value,
+    store: props.store
   });
 
   function onChange(selected) {
