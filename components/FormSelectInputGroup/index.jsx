@@ -1,24 +1,19 @@
 import FormInput from "components/FormInput";
 import FormSelect from "components/FormSelect";
+import { useEffectOnMount } from "components/utils";
 import { useHandler, useStore } from "../Form/FormUtils";
-import { useEffect, useRef } from "react";
 
 export default function FormSelectInputGroup(props) {
-  const isInitialMount = useRef(true);
   const store = useStore(buildState(props.selectValue, props.inputValue));
   const { setValue } = useHandler({
     name: props.name
   });
 
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      setValue({
-        title: store.data.selected.value,
-        name: store.data.input
-      });
-    }
+  useEffectOnMount(() => {
+    setValue({
+      title: store.data.selected.value,
+      name: store.data.input
+    });
   }, [store.data]);
 
   function buildState(selected, input) {
