@@ -1,4 +1,5 @@
 import { useHandler, useValidator } from "../Form/FormUtils";
+import FormUI from "components/FormUI";
 
 export default function FormInput(props) {
   const { name, validate, store, ...other } = props;
@@ -28,9 +29,7 @@ export default function FormInput(props) {
   }
 
   return (
-    <div style={{ margin: "20px 10px" }}>
-      <label>{name}</label>
-      <br />
+    <FormUI style={{ margin: "20px 10px" }} pristine={pristine} error={error}>
       <input
         style={{ marginTop: 5 }}
         onChange={onChange}
@@ -38,9 +37,6 @@ export default function FormInput(props) {
         {...other}
       />
       <button onClick={_setValue}>Change value</button>
-      <small style={{ color: "red", marginLeft: 10 }}>
-        {!pristine && error && <label>{error}</label>}
-      </small>
-    </div>
+    </FormUI>
   );
 }
