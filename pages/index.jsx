@@ -52,9 +52,8 @@ export default function AgendaPage() {
       <div>
         <h2>Form</h2>
         <Form
-          onChange={(...args) => {
-            console.log("Form on change", args);
-            return Promise.resolve();
+          onChange={newState => {
+            console.log("Form on change", newState);
           }}
           onSubmit={(data, errors) => {
             console.log("Form submit data", data);
