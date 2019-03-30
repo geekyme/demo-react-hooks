@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Form from "components/Form";
-import { render } from "react-testing-library";
 
 export default function FormBuilder(props) {
   const formConfig = props.config;
@@ -8,7 +7,7 @@ export default function FormBuilder(props) {
 
   useEffect(() => {
     formConfig.init();
-    render();
+    rerender(formConfig.ui());
   }, []);
 
   function onSubmit(state, errors) {
