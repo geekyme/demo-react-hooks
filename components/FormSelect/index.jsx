@@ -1,26 +1,33 @@
 import { useFormState } from "../Form/FormUtils";
+import { useState } from "react";
+import { useEffectOnMount } from "components/utils";
 import Select from "react-select";
 import FormUI from "components/FormUI";
 
 export default function FormSelect(props) {
   const { initialState, name, store, ...other } = props;
-  const { setValue, value } = useFormState({
+  const [state, setState] = useState(initialState);
+  const { setValue } = useFormState({
     name,
-    initialState,
+    initialState: initialState.value,
     store
   });
 
-  function onChange(selected) {
-    setValue(selected);
+  useEffectOnMount(() => {
+    setValue(state.value);
     if (typeof props.onChange === "function") {
       props.onChange(selected);
     }
+  }, [state]);
+
+  function onChange(selected) {
+    setState(selected);
   }
 
   return (
     <FormUI name={props.name}>
       <Select
-        value={value}
+        value={state}
         onChange={onChange}
         options={props.options}
         {...other}

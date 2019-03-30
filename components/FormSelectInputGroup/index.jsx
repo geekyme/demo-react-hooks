@@ -27,7 +27,7 @@ export default function FormSelectInputGroup(props) {
 
   useEffectOnMount(() => {
     setValue({
-      title: store.data.select.value,
+      title: store.data.select,
       name: store.data.input
     });
   }, [store.data]);
