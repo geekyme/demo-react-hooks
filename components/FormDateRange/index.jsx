@@ -1,11 +1,11 @@
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
 import { useRef } from "react";
-import { useHandler } from "components/Form/FormUtils";
+import { useFormState } from "components/Form/FormUtils";
 
 export default function FormDateRange(props) {
   const toEl = useRef();
-  const { setValue, value } = useHandler({
+  const { setValue, value } = useFormState({
     name: props.name,
     initialState: {}
   });

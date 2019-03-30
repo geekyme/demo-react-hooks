@@ -164,7 +164,7 @@ function useLocalStateStrategy(opts) {
   };
 }
 
-export function useHandler(opts) {
+export function useFormState(opts) {
   if (typeof opts.store !== "undefined") {
     return useStoreStrategy(opts);
   } else {

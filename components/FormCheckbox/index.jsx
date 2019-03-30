@@ -1,9 +1,9 @@
-import { useHandler } from "../Form/FormUtils";
+import { useFormState } from "../Form/FormUtils";
 import FormUI from "components/FormUI";
 
 export default function FormCheckbox(props) {
   const { name, initialState, store } = props;
-  const { setValue, value } = useHandler({
+  const { setValue, value } = useFormState({
     name,
     initialState,
     store

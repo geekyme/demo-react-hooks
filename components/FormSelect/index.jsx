@@ -1,9 +1,9 @@
-import { useHandler } from "../Form/FormUtils";
+import { useFormState } from "../Form/FormUtils";
 import Select from "react-select";
 import FormUI from "components/FormUI";
 
 export default function FormSelect(props) {
-  const { setValue, value } = useHandler({
+  const { setValue, value } = useFormState({
     name: props.name,
     initialState: props.value,
     store: props.store

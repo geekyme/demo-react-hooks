@@ -1,11 +1,11 @@
 import FormInput from "components/FormInput";
 import FormSelect from "components/FormSelect";
 import { useEffectOnMount } from "components/utils";
-import { useHandler, useStore } from "../Form/FormUtils";
+import { useFormState, useStore } from "../Form/FormUtils";
 
 export default function FormSelectInputGroup(props) {
   const store = useStore(buildState(props.selectValue, props.inputValue));
-  const { setValue } = useHandler({
+  const { setValue } = useFormState({
     name: props.name
   });
 

@@ -1,8 +1,8 @@
-import { useHandler } from "../Form/FormUtils";
+import { useFormState } from "../Form/FormUtils";
 import FormUI from "components/FormUI";
 
 export default function FormRadio(props) {
-  const { setValue, value } = useHandler({
+  const { setValue, value } = useFormState({
     name: props.name,
     onChange: props.onChange,
     initialState: props.value,
