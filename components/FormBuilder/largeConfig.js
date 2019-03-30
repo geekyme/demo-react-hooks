@@ -16,6 +16,7 @@ for (let i = 0; i < count; i++) {
   );
 }
 
+// TODO this needs a bit of work, apparently triggering massive perf issues
 for (let i = 0; i < count; i++) {
   for (let j = 0; j < relationships; j++) {
     const rand1 = Math.floor(Math.random() * count);
