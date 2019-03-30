@@ -105,7 +105,7 @@ function useStoreStrategy(opts) {
   // TODO: might be an anti-pattern as we are mutating the state instead of calling setField
   // the reason is because we do not want to trigger new render cycles
   // useRef perhaps?
-  if (isInitialMount.current && typeof initialState !== "undefined") {
+  if (isInitialMount.current) {
     store.data[name] = initialState;
   }
 
@@ -143,6 +143,11 @@ function useStoreStrategy(opts) {
 
 function useLocalStateStrategy(opts) {
   const { initialState, validate } = opts;
+
+  if (typeof initialState === "undefined") {
+    throw new Error("initialState must be defined to something!");
+  }
+
   const [pristine, setPristine] = useState(true);
   const [error, setError] = useState(null);
   const [state, setState] = useState(initialState);

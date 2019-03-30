@@ -2,7 +2,7 @@ import { useFormState } from "../Form/FormUtils";
 import FormUI from "components/FormUI";
 
 export default function FormCheckbox(props) {
-  const { name, initialState, store, ...other } = props;
+  const { name, initialState = false, store, ...other } = props;
   const { setValue, value } = useFormState({
     name,
     initialState,
