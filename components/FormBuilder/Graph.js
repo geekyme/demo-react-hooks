@@ -20,7 +20,11 @@ class Node {
   }
 
   render() {
-    this.ui = this.renderFunc({ name: this.name, ...this.props }, this.ref);
+    if (this.props !== null) {
+      this.ui = this.renderFunc({ name: this.name, ...this.props }, this.ref);
+    } else {
+      this.ui = null;
+    }
   }
 }
 
@@ -62,9 +66,7 @@ class Graph {
 
         outNode.props = result;
 
-        if (result !== null) {
-          outNode.render();
-        }
+        outNode.render();
       });
     });
   }
