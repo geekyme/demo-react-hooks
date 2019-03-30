@@ -1,71 +1,88 @@
-function Node(data) {
-  this.data = data;
-  this.out = new Map();
-  this.key = data.id || data.name;
-  this.ui = null;
+class Node {
+  constructor(graph, opts) {
+    this.graph = graph;
+    this.name = opts.name;
+    this.render = opts.render;
+    this.props = opts.props;
+    this.out = new Map();
+  }
+
+  to(nodeName, callback) {
+    const node = this.graph.getNode(nodeName);
+
+    this.out.set(node, callback);
+
+    return this.graph;
+  }
 }
 
-Node.prototype.render = function(oldState, newState) {
-  const Component = this.data.component;
-  const props = this.data.getProps(oldState, newState);
+class Graph {
+  constructor() {
+    this.nodes = new Map();
+  }
 
-  this.ui = <Component key={this.key} {...props} />;
-};
+  addNode(name, render, opts) {
+    const node = new Node(this, {
+      render,
+      name,
+      ...opts
+    });
+    this.nodes.set(name, node);
 
-Node.prototype.to = function(node, condition) {
-  this.out.set(node, condition);
-};
+    return this;
+  }
 
-function Graph(items) {
-  this.nodes = {};
-  this.components = [];
+  getNode(name) {
+    return this.nodes.get(name);
+  }
 
-  items.forEach(data => {
-    if (typeof this.nodes[data.name] === "undefined") {
-      this.nodes[data.name] = [new Node(data)];
-    } else {
-      this.nodes[data.name].push(new Node(data));
-    }
-  });
-}
+  link(name) {
+    return this.getNode(name);
+  }
 
-Graph.prototype.getNode = function(name, index = 0) {
-  return this.nodes[name][index];
-};
+  runChanges(changes) {
+    const nodes = Object.keys(changes);
 
-// TODO: need to rethink this together with UI changes
-// at the moment, we are only able to modify the form state based on inputs
-// however we should also be able to apply node changes.
-//
-// eg. if a node A's value is xxx, then node B's validator should change to xxx
-// therefore we need to be able to apply new props on the node
-Graph.prototype.runChanges = function({ oldState, newState, changes }) {
-  Object.keys(changes).forEach(name => {
-    this.nodes[name].forEach(node => {
-      node.out.forEach((condition, outNode) => {
-        newState = condition(oldState, newState);
-        outNode.render(oldState, newState);
+    nodes.forEach(name => {
+      const node = this.nodes.get(name);
+
+      node.out.forEach((callback, outNode) => {
+        const change = changes[name];
+        const result = callback(change);
+
+        outNode.props = result;
       });
-
-      node.render(oldState, newState);
     });
-  });
+  }
 
-  const components = [];
+  init() {
+    const changes = {};
 
-  Object.keys(newState).forEach(name => {
-    this.nodes[name].forEach(node => {
-      components.push(node.ui);
+    this.nodes.forEach((node, name) => {
+      if (node.props !== null) {
+        changes[name] = node.props.initialState;
+      }
     });
-  });
 
-  this.components = components;
+    this.runChanges(changes);
+  }
 
-  return newState;
-};
+  ui() {
+    const children = [];
 
-Graph.prototype.ui = function() {
-  return this.components;
-};
+    for (const [name, node] of this.nodes) {
+      if (node.props !== null) {
+        children.push(
+          node.render({
+            name,
+            ...node.props
+          })
+        );
+      }
+    }
+
+    return children;
+  }
+}
 
 export default Graph;

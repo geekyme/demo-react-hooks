@@ -2,37 +2,25 @@ import EditableList from "components/EditableList";
 import GlanceItems from "components/GlanceItems";
 import FormBuilder from "components/FormBuilder";
 import FormInput from "components/FormInput";
+import formConfig from "components/FormBuilder/formConfig";
+import largeConfig from "components/FormBuilder/largeConfig";
 import FormCheckbox from "components/FormCheckbox";
 import FormRadio from "components/FormRadio";
 import FormSelect from "components/FormSelect";
 import FormDateRange from "components/FormDateRange";
 import FormSelectInputGroup from "../components/FormSelectInputGroup";
 import Form from "components/Form";
-import getFormConfig, { getLargeConfig } from "./getFormConfig";
 import getConfig from "next/config";
 
 export default function AgendaPage() {
   const { publicRuntimeConfig } = getConfig();
-  let config, initialState;
+  let config;
 
   if (publicRuntimeConfig.highload) {
-    initialState = {};
-    config = getLargeConfig();
-
-    Object.keys(config.nodes).forEach(k => {
-      initialState[k] = "";
-    });
+    config = largeConfig;
   } else {
-    initialState = {};
-
-    config = getFormConfig();
+    config = formConfig;
   }
-
-  const newInitialState = config.runChanges({
-    oldState: {},
-    newState: initialState,
-    changes: initialState
-  });
 
   function customValidate(value) {
     if (value !== "boo") {
@@ -47,7 +35,7 @@ export default function AgendaPage() {
       <EditableList />
       <div>
         <h2>Form Builder</h2>
-        <FormBuilder config={config} initialState={newInitialState} />
+        <FormBuilder config={config} />
       </div>
       <div>
         <h2>Form</h2>
