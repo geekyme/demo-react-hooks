@@ -20,6 +20,7 @@ export default function AgendaPage() {
     });
   } else {
     initialState = {
+      travel: {},
       fullName: {
         title: "Dr",
         name: "1"

@@ -3,6 +3,7 @@ import FormCheckbox from "components/FormCheckbox";
 import FormRadio from "components/FormRadio";
 import FormSelect from "components/FormSelect";
 import FormSelectInputGroup from "components/FormSelectInputGroup";
+import FormDateRange from "components/FormDateRange";
 
 import Graph from "components/FormBuilder/Graph";
 
@@ -55,6 +56,13 @@ export function getLargeConfig() {
 }
 export default function getFormConfig() {
   const graph = new Graph([
+    {
+      name: "travel",
+      component: FormDateRange,
+      getProps(oldState, newState) {
+        return { name: "travel" };
+      }
+    },
     {
       name: "select",
       component: FormSelect,
