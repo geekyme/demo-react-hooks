@@ -72,7 +72,7 @@ export default function AgendaPage() {
             initialState={{ value: "tw", label: "Taiwan" }}
           />
           <FormSelectInputGroup
-            name="fullName"
+            name="full_name"
             options={[
               { value: "Mr", label: "Mr" },
               { value: "Mrs", label: "Mrs" },
