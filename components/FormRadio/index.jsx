@@ -23,7 +23,7 @@ export default function FormRadio(props) {
       {options.map((option, index) => {
         const id = `${props.name}_${index}`;
         return (
-          <div>
+          <div key={id}>
             <label style={{ marginLeft: 3 }} htmlFor={id}>
               {option.label}
             </label>
