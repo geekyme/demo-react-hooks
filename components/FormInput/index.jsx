@@ -1,18 +1,13 @@
-import { useFormState, useValidator } from "../Form/FormUtils";
+import { useFormState } from "../Form/FormUtils";
 import FormUI from "components/FormUI";
 
 export default function FormInput(props) {
   const { name, validate, store, ...other } = props;
-  const { setValue, value, pristine } = useFormState({
+  const { setValue, value, pristine, error } = useFormState({
     name,
     initialState: props.value,
-    store
-  });
-
-  const error = useValidator({
-    name,
-    validate,
-    value
+    store,
+    validate
   });
 
   function onChange(e) {
