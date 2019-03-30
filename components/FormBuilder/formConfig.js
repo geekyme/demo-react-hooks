@@ -53,6 +53,20 @@ graph
     { props: {} }
   )
   .addNode(
+    "id_no_copy",
+    (props, ref) => {
+      function validate(value) {
+        if (value === "") {
+          return "This is required!";
+        }
+
+        return null;
+      }
+      return <FormInput ref={ref} {...props} validate={validate} />;
+    },
+    { props: {} }
+  )
+  .addNode(
     "visa_no",
     props => {
       return <FormInput {...props} />;
@@ -109,6 +123,13 @@ graph
     } else {
       return {};
     }
+  })
+  .link("id_no")
+  .to("id_no_copy", (value, toNode) => {
+    if (toNode !== null) {
+      toNode.setValue(value);
+    }
+    return {};
   });
 
 export default graph;

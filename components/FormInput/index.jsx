@@ -1,7 +1,8 @@
 import { useFormState } from "../Form/FormUtils";
 import FormUI from "components/FormUI";
+import { forwardRef, useImperativeHandle } from "react";
 
-export default function FormInput(props) {
+function FormInput(props, ref) {
   const { name, validate, store, initialState = "", ...other } = props;
   const { setValue, value, pristine, error } = useFormState({
     name,
@@ -9,6 +10,12 @@ export default function FormInput(props) {
     store,
     validate
   });
+
+  useImperativeHandle(ref, () => ({
+    setValue: value => {
+      setValue(value);
+    }
+  }));
 
   function onChange(e) {
     setValue(e.target.value);
@@ -40,3 +47,5 @@ export default function FormInput(props) {
     </FormUI>
   );
 }
+
+export default forwardRef(FormInput);
