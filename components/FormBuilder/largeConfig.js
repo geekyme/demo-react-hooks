@@ -2,33 +2,38 @@ import Graph from "./Graph";
 import FormInput from "components/FormInput";
 
 const graph = new Graph();
-const count = 10;
-const relationships = 1;
+const count = 1000;
+const relationships = 10;
 const prefix = "input_";
 
 for (let i = 0; i < count; i++) {
   graph.addNode(
     prefix + i,
-    props => {
-      console.log(props);
-      return <FormInput {...props} />;
+    (props, ref) => {
+      return <FormInput ref={ref} {...props} />;
     },
     { props: {} }
   );
 }
 
 for (let i = 0; i < count; i++) {
-  for (let j = 0; i < relationships; i++) {
+  for (let j = 0; j < relationships; j++) {
     const rand1 = Math.floor(Math.random() * count);
     const rand2 = Math.floor(Math.random() * count);
-    const node1 = prefix + rand1;
-    const node2 = prefix + rand2;
+    const name1 = prefix + rand1;
+    const name2 = prefix + rand2;
+    const node1 = graph.getNode(name1);
+    const node2 = graph.getNode(name2);
 
-    graph.link(node1).to(node2, value => {
-      return {
-        initialState: value
-      };
-    });
+    if (node1.out.size === 0 && node2.out.size === 0) {
+      graph.link(name1).to(name2, (value, toNode) => {
+        if (toNode !== null) {
+          toNode.setValue(value);
+        }
+
+        return {};
+      });
+    }
   }
 }
 
