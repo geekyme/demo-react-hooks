@@ -3,7 +3,7 @@ import { useEffectOnMount } from "components/utils";
 
 export const FormContext = React.createContext();
 
-export function useStore(data) {
+export function useStore(data, interceptChange) {
   const [state, setState] = useState(data || {});
   const [errors, setErrors] = useState({});
   const [dirties, setDirties] = useState({});
@@ -94,32 +94,37 @@ function getError(validate, value) {
 }
 
 function useStoreStrategy(opts) {
-  const { name, store, initialState, transformValue, validate } = opts;
+  const { name, store, validate, initialState } = opts;
+  const isInitialMount = useRef(true);
   if (typeof name === "undefined") {
     throw new Error("You must supply a 'name' prop if you are using <Form>");
   }
 
   const pristine = !store.dirties[name];
 
-  const state =
-    typeof store.data[name] === "undefined" ? initialState : store.data[name];
+  // TODO: might be an anti-pattern as we are mutating the state instead of calling setField
+  // the reason is because we do not want to trigger new render cycles
+  // useRef perhaps?
+  if (isInitialMount.current && typeof initialState !== "undefined") {
+    store.data[name] = initialState;
+  }
 
+  const state = store.data[name];
   const error = getError(validate, state);
 
-  useEffectOnMount(() => {
-    if (pristine) {
-      store.setDirty(name);
-    }
-
-    store.setField({
-      name,
-      value: state
-    });
-
-    if (error !== null) {
-      store.setError({ name, error });
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
     } else {
-      store.removeError({ name });
+      if (pristine) {
+        store.setDirty(name);
+      }
+
+      if (error !== null) {
+        store.setError({ name, error });
+      } else {
+        store.removeError({ name });
+      }
     }
   }, [state]);
 
@@ -130,14 +135,14 @@ function useStoreStrategy(opts) {
         value: state
       });
     },
-    value: transformValue ? transformValue(state) : state,
+    value: state,
     pristine,
     error
   };
 }
 
 function useLocalStateStrategy(opts) {
-  const { transformValue, initialState, validate } = opts;
+  const { initialState, validate } = opts;
   const [pristine, setPristine] = useState(true);
   const [error, setError] = useState(null);
   const [state, setState] = useState(initialState);
@@ -155,7 +160,7 @@ function useLocalStateStrategy(opts) {
     setValue(state) {
       setState(state);
     },
-    value: transformValue ? transformValue(state) : state,
+    value: state,
     pristine,
     error
   };

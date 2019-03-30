@@ -4,10 +4,11 @@ import { useRef } from "react";
 import { useFormState } from "components/Form/FormUtils";
 
 export default function FormDateRange(props) {
+  const { initialState = {}, name } = props;
   const toEl = useRef();
   const { setValue, value } = useFormState({
-    name: props.name,
-    initialState: {}
+    name,
+    initialState
   });
   const { from, to } = value;
 

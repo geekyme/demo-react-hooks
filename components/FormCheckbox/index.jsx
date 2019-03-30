@@ -2,7 +2,7 @@ import { useFormState } from "../Form/FormUtils";
 import FormUI from "components/FormUI";
 
 export default function FormCheckbox(props) {
-  const { name, initialState, store } = props;
+  const { name, initialState, store, ...other } = props;
   const { setValue, value } = useFormState({
     name,
     initialState,
@@ -20,7 +20,7 @@ export default function FormCheckbox(props) {
 
   return (
     <FormUI style={{ margin: "10px 20px" }} name={name}>
-      <input {...props} onChange={onChange} type="checkbox" checked={value} />
+      <input onChange={onChange} type="checkbox" checked={value} {...other} />
       <button onClick={_setValue}>Change value</button>
     </FormUI>
   );

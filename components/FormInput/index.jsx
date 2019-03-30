@@ -2,10 +2,10 @@ import { useFormState } from "../Form/FormUtils";
 import FormUI from "components/FormUI";
 
 export default function FormInput(props) {
-  const { name, validate, store, ...other } = props;
+  const { name, validate, store, initialState, ...other } = props;
   const { setValue, value, pristine, error } = useFormState({
     name,
-    initialState: props.value,
+    initialState,
     store,
     validate
   });
