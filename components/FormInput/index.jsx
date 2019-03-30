@@ -29,7 +29,12 @@ export default function FormInput(props) {
   }
 
   return (
-    <FormUI style={{ margin: "20px 10px" }} pristine={pristine} error={error}>
+    <FormUI
+      style={{ margin: "20px 10px" }}
+      pristine={pristine}
+      error={error}
+      name={name}
+    >
       <input
         style={{ marginTop: 5 }}
         onChange={onChange}

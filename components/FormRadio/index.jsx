@@ -1,4 +1,5 @@
 import { useHandler } from "../Form/FormUtils";
+import FormUI from "components/FormUI";
 
 export default function FormRadio(props) {
   const { setValue, value } = useHandler({
@@ -16,11 +17,11 @@ export default function FormRadio(props) {
   }
 
   return (
-    <div style={{ margin: "20px 10px" }}>
+    <FormUI style={{ margin: "20px 10px" }} name={props.name}>
       <input {...props} type="radio" onChange={onChange} checked={value} />
       <label style={{ marginLeft: 3 }} htmlFor={props.id}>
         {props.value}
       </label>
-    </div>
+    </FormUI>
   );
 }
