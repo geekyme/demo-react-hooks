@@ -3,6 +3,7 @@ import GlanceItems from "components/GlanceItems";
 import FormBuilder from "components/FormBuilder";
 import FormInput from "components/FormInput";
 import FormSelect from "components/FormSelect";
+import FormDateRange from "components/FormDateRange";
 import getFormConfig, { getLargeConfig } from "./getFormConfig";
 import getConfig from "next/config";
 
@@ -59,6 +60,7 @@ export default function AgendaPage() {
       </div>
       <div>
         <h2>Standalone</h2>
+        <FormDateRange />
         <FormInput
           onChange={e => console.log("standalone", e.target.value)}
           validate={customValidate}
