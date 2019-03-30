@@ -79,8 +79,10 @@ export default function AgendaPage() {
               { value: "Ms", label: "Ms" },
               { value: "Mdm", label: "Mdm" }
             ]}
-            selectValue={{ value: "Mr", label: "Mr" }}
-            inputValue="bob"
+            initialState={{
+              select: { value: "Mr", label: "Mr" },
+              input: "bob"
+            }}
           />
           <FormRadio
             name="gender"
