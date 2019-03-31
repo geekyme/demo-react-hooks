@@ -55,6 +55,9 @@ graph
     }
     return <FormInput ref={ref} {...injectedProps} validate={validate} />;
   })
+  .addNode("id_no_another_copy", (injectedProps, ref) => {
+    return <FormInput ref={ref} {...injectedProps} />;
+  })
   .addNode(
     "visa_no",
     injectedProps => {
@@ -144,6 +147,10 @@ graph
   })
   .link("id_no")
   .to("id_no_copy", (value, toNode) => {
+    toNode.call("setValue", value);
+  })
+  .link("id_no_copy")
+  .to("id_no_another_copy", (value, toNode) => {
     toNode.call("setValue", value);
   });
 
