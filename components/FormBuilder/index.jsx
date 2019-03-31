@@ -1,14 +1,8 @@
-import { useState, useEffect } from "react";
 import Form from "components/Form";
+import { useGraph } from "components/FormBuilder/GraphUtils";
 
 export default function FormBuilder(props) {
-  const formConfig = props.config;
-  const [ui, rerender] = useState(formConfig.ui());
-
-  useEffect(() => {
-    formConfig.init();
-    rerender(formConfig.ui());
-  }, []);
+  const { ui, runChanges } = useGraph(props.config);
 
   function onSubmit(state, errors) {
     console.log("form", state);
@@ -18,8 +12,7 @@ export default function FormBuilder(props) {
   return (
     <Form
       onChange={(newState, changes) => {
-        formConfig.runChanges(changes);
-        rerender(formConfig.ui());
+        runChanges(changes);
       }}
       onSubmit={onSubmit}
       data={props.initialState}

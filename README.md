@@ -23,11 +23,11 @@ A few examples are show cased here:
 
 ### A Form builder
 
-- Building on previous example, providing a graph API to construct the fields of a form and map relationships between fields
+- Using custom useGraph hook, which accepts a graph of components and relationships. This allows us to build a complex form with conditional rendering fields.
 
 ### A Form builder with huge number of fields and relationships
 
-- An exaggerated example of the previous, where changing the first field will copy the value to all the other X fields
+- An exaggerated version of the previous example, where changing the first field will copy the value to all the other X fields
 
 ## Setup
 
