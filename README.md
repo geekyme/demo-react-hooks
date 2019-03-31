@@ -2,7 +2,7 @@
 
 A demo on how to use react hooks for everything. [DEMO](https://demo-react-hooks-3lt8ehjye.now.sh/)
 
-2 examples are show cased here:
+4 examples are show cased here:
 
 1. A simple editable list
 
@@ -13,10 +13,17 @@ A demo on how to use react hooks for everything. [DEMO](https://demo-react-hooks
 - Using useEffect hook to do things like run init state
 - Using custom hooks (useAdd / useRemove) to handle side effects.
 
-2. A Form builder
+2. A standalone form field
 
-- Using custom useHandler to mask complexity of getting data from context / state
-- Providing a API to build complex / performant conditional rendering of forms purely with configuration.
+- Using custom useFormState to mask complexity of getting data from context / state
+
+3. A Form with many fields
+
+- Using custom useFormState to mask complexity of getting data from context / state
+
+4. A Form builder
+
+- Building on #3, providing a graph API to construct the fields of a form and map relationships between fields
 
 ### Setup
 

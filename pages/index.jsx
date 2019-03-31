@@ -31,12 +31,29 @@ export default function AgendaPage() {
   }
   return (
     <div>
-      <GlanceItems />
-      <EditableList />
       <div>
-        <h2>Form Builder</h2>
-        <FormBuilder config={config} />
+        <h2>Simple Editable list</h2>
+        <GlanceItems />
+        <EditableList />
       </div>
+      <div>
+        <h2>Standalone</h2>
+        <FormDateRange />
+        <FormInput
+          onChange={e => console.log("standalone", e.target.value)}
+          validate={customValidate}
+        />
+        <FormSelect
+          initialState={{ value: "strawberry", label: "Strawberry" }}
+          onChange={(...args) => console.log("standalone select", args)}
+          options={[
+            { value: "chocolate", label: "Chocolate" },
+            { value: "strawberry", label: "Strawberry" },
+            { value: "vanilla", label: "Vanilla" }
+          ]}
+        />
+      </div>
+
       <div>
         <h2>Form</h2>
         <Form
@@ -91,21 +108,8 @@ export default function AgendaPage() {
         </Form>
       </div>
       <div>
-        <h2>Standalone</h2>
-        <FormDateRange />
-        <FormInput
-          onChange={e => console.log("standalone", e.target.value)}
-          validate={customValidate}
-        />
-        <FormSelect
-          initialState={{ value: "strawberry", label: "Strawberry" }}
-          onChange={(...args) => console.log("standalone select", args)}
-          options={[
-            { value: "chocolate", label: "Chocolate" },
-            { value: "strawberry", label: "Strawberry" },
-            { value: "vanilla", label: "Vanilla" }
-          ]}
-        />
+        <h2>Form Builder</h2>
+        <FormBuilder config={config} />
       </div>
     </div>
   );
