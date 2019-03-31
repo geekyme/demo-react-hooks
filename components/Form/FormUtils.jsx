@@ -12,7 +12,9 @@ export function useStore(data, onChange) {
     data: state,
     dirties,
     errors,
+    initField: initField,
     setField: setField,
+    cleanField: cleanField,
     setError: setError,
     removeError: removeError,
     setDirty: setDirty,
@@ -73,6 +75,22 @@ export function useStore(data, onChange) {
     }));
   }
 
+  function cleanField({ name }) {
+    changes.current = { [name]: undefined };
+    setState(prevState => {
+      delete prevState[name];
+
+      return prevState;
+    });
+  }
+
+  // TODO: might be an anti-pattern as we are mutating the state instead of calling setField
+  // the reason is because we do not want to trigger new render cycles
+  // useRef perhaps?
+  function initField({ name, value }) {
+    state[name] = value;
+  }
+
   return store;
 }
 
@@ -93,17 +111,15 @@ function getError(validate, value) {
 function useStoreStrategy(opts) {
   const { name, store, validate, initialState } = opts;
   const isInitialMount = useRef(true);
+
   if (typeof name === "undefined") {
     throw new Error("You must supply a 'name' prop if you are using <Form>");
   }
 
   const pristine = !store.dirties[name];
 
-  // TODO: might be an anti-pattern as we are mutating the state instead of calling setField
-  // the reason is because we do not want to trigger new render cycles
-  // useRef perhaps?
   if (isInitialMount.current) {
-    store.data[name] = initialState;
+    store.initField({ name, value: initialState });
   }
 
   const state = store.data[name];
@@ -112,6 +128,12 @@ function useStoreStrategy(opts) {
   if (isInitialMount.current && error !== null) {
     store.errors[name] = error;
   }
+
+  useEffect(() => {
+    return () => {
+      store.cleanField({ name });
+    };
+  }, []);
 
   useEffect(() => {
     if (isInitialMount.current) {
