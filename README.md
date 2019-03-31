@@ -4,7 +4,7 @@ A demo on how to use react hooks for everything. See website link above for demo
 
 4 examples are show cased here:
 
-1. A simple editable list
+### A simple editable list
 
 - Using useState / useContext hooks to create a global observable store
 - Providing custom useAppContext hook as an API to the store
@@ -13,19 +13,19 @@ A demo on how to use react hooks for everything. See website link above for demo
 - Using useEffect hook to do things like run init state
 - Using custom hooks (useAdd / useRemove) to handle side effects.
 
-2. A standalone form field
+### A standalone form field
 
 - Using custom useFormState to mask complexity of getting data from context / state
 
-3. A Form with many fields
+### A Form with many fields
 
 - Using custom useFormState to mask complexity of getting data from context / state
 
-4. A Form builder
+### A Form builder
 
 - Building on #3, providing a graph API to construct the fields of a form and map relationships between fields
 
-### Setup
+## Setup
 
 This project is built on top of [NextJS](http://nextjs.org) for convenience
 
