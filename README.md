@@ -2,7 +2,7 @@
 
 A demo on how to use react hooks for everything. See website link above for demo.
 
-4 examples are show cased here:
+A few examples are show cased here:
 
 ### A simple editable list
 
@@ -23,7 +23,11 @@ A demo on how to use react hooks for everything. See website link above for demo
 
 ### A Form builder
 
-- Building on #3, providing a graph API to construct the fields of a form and map relationships between fields
+- Building on previous example, providing a graph API to construct the fields of a form and map relationships between fields
+
+### A Form builder with huge number of fields and relationships
+
+- An exaggerated example of the previous, where changing the first field will copy the value to all the other X fields
 
 ## Setup
 

@@ -12,8 +12,6 @@ import FormSelectInputGroup from "../components/FormSelectInputGroup";
 import Form from "components/Form";
 
 export default function AgendaPage() {
-  const config = formConfig;
-
   function customValidate(value) {
     if (value !== "boo") {
       return "Value is not boo";
@@ -101,7 +99,11 @@ export default function AgendaPage() {
       </div>
       <div>
         <h2>Form Builder</h2>
-        <FormBuilder config={config} />
+        <FormBuilder config={formConfig} />
+      </div>
+      <div>
+        <h2>Form Builder (Large)</h2>
+        <FormBuilder config={largeConfig} />
       </div>
     </div>
   );
