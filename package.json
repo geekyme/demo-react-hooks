@@ -1,16 +1,17 @@
 {
-  "name": "bettermanager",
+  "name": "demo-react-hooks",
   "version": "1.0.0",
-  "description": "",
+  "description": "A demo of various ways to use hooks",
   "main": "index.js",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "deploy": "DEPLOY=true npm run build && now -e DEPLOY=true"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@zeit/next-css": "1.0.1",
     "next": "^8.0.3",

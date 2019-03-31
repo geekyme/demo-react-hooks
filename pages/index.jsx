@@ -10,17 +10,9 @@ import FormSelect from "components/FormSelect";
 import FormDateRange from "components/FormDateRange";
 import FormSelectInputGroup from "../components/FormSelectInputGroup";
 import Form from "components/Form";
-import getConfig from "next/config";
 
 export default function AgendaPage() {
-  const { publicRuntimeConfig } = getConfig();
-  let config;
-
-  if (publicRuntimeConfig.highload) {
-    config = largeConfig;
-  } else {
-    config = formConfig;
-  }
+  const config = formConfig;
 
   function customValidate(value) {
     if (value !== "boo") {

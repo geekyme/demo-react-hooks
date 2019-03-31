@@ -1,6 +1,6 @@
 # demo-react-hooks
 
-A demo on how to use react hooks for everything. [DEMO](https://demo-react-hooks-3lt8ehjye.now.sh/)
+A demo on how to use react hooks for everything. See website link above for demo.
 
 4 examples are show cased here:
 
@@ -30,5 +30,5 @@ A demo on how to use react hooks for everything. [DEMO](https://demo-react-hooks
 This project is built on top of [NextJS](http://nextjs.org) for convenience
 
 1. `npm install`
-2. `npm run dev` or `HIGHLOAD=true npm run dev` if you want to play with the form builder with 1000 fields
+2. `npm run dev`
 3. Open your browser and play with both examples. There is simulated delay with the editable list.
