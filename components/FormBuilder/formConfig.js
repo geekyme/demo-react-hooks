@@ -3,6 +3,7 @@ import FormDateRange from "components/FormDateRange";
 import FormSelect from "components/FormSelect";
 import FormInput from "components/FormInput";
 import FormRadio from "components/FormRadio";
+import FormCheckbox from "components/FormCheckbox";
 
 const graph = new Graph();
 
@@ -73,6 +74,39 @@ graph
       }
     ];
     return <FormRadio initialState="f" options={options} {...injectedProps} />;
+  })
+  .addNode("check_1", (injectedProps, ref) => {
+    return <FormCheckbox ref={ref} {...injectedProps} />;
+  })
+  .addNode("check_2", (injectedProps, ref) => {
+    return <FormCheckbox ref={ref} {...injectedProps} />;
+  })
+  .addNode("check_3", (injectedProps, ref) => {
+    return <FormCheckbox ref={ref} {...injectedProps} />;
+  })
+  .link("check_1")
+  .to("check_3", (check_1, toNode) => {
+    if (check_1) {
+      toNode.call("setValue", false);
+    }
+  })
+  .link("check_2")
+  .to("check_3", (check_2, toNode) => {
+    if (check_2) {
+      toNode.call("setValue", false);
+    }
+  })
+  .link("check_3")
+  .to("check_1", (check_3, toNode) => {
+    if (check_3) {
+      toNode.call("setValue", false);
+    }
+  })
+  .link("check_3")
+  .to("check_2", (check_3, toNode) => {
+    if (check_3) {
+      toNode.call("setValue", false);
+    }
   })
   .link("country")
   .to("visa_no", (country, toNode) => {

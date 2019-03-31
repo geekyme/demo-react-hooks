@@ -1,7 +1,8 @@
 import { useFormState } from "../Form/FormUtils";
 import FormUI from "components/FormUI";
+import { forwardRef, useImperativeHandle } from "react";
 
-export default function FormCheckbox(props) {
+function FormCheckbox(props, ref) {
   const { name, initialState = false, store, ...other } = props;
   const { setValue, value } = useFormState({
     name,
@@ -18,6 +19,12 @@ export default function FormCheckbox(props) {
     setValue(!value);
   }
 
+  useImperativeHandle(ref, () => ({
+    setValue: value => {
+      setValue(value);
+    }
+  }));
+
   return (
     <FormUI style={{ margin: "10px 20px" }} name={name}>
       <input onChange={onChange} type="checkbox" checked={value} {...other} />
@@ -25,3 +32,5 @@ export default function FormCheckbox(props) {
     </FormUI>
   );
 }
+
+export default forwardRef(FormCheckbox);
