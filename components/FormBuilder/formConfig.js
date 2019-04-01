@@ -9,7 +9,7 @@ const graph = new Graph();
 
 graph
   .addNode("travel_dates", injectedProps => {
-    return <FormDateRange {...injectedProps} />;
+    return <FormDateRange label="Travel Dates" {...injectedProps} />;
   })
   .addNode("country", injectedProps => {
     const options = [
@@ -24,6 +24,7 @@ graph
     ];
     return (
       <FormSelect
+        label="Select your country of origin"
         initialState={options[1]}
         options={options}
         {...injectedProps}
@@ -38,12 +39,25 @@ graph
         { value: "nric", label: "Singapore IC" }
       ];
 
-      return <FormRadio options={options} {...injectedProps} />;
+      return (
+        <FormRadio
+          label="Select your Identification type"
+          options={options}
+          {...injectedProps}
+        />
+      );
     },
     { props: { initialState: "nric" } }
   )
+  .addNode(
+    "visa_no",
+    injectedProps => {
+      return <FormInput label="Enter your visa number" {...injectedProps} />;
+    },
+    { visible: false }
+  )
   .addNode("id_no", injectedProps => {
-    return <FormInput {...injectedProps} />;
+    return <FormInput label="Enter your ID no." {...injectedProps} />;
   })
   .addNode("id_no_copy", (injectedProps, ref) => {
     function validate(value) {
@@ -53,18 +67,24 @@ graph
 
       return null;
     }
-    return <FormInput ref={ref} {...injectedProps} validate={validate} />;
+    return (
+      <FormInput
+        label="(For example only) Copy of above"
+        ref={ref}
+        {...injectedProps}
+        validate={validate}
+      />
+    );
   })
   .addNode("id_no_another_copy", (injectedProps, ref) => {
-    return <FormInput ref={ref} {...injectedProps} />;
+    return (
+      <FormInput
+        label="(For example only) Copy of above"
+        ref={ref}
+        {...injectedProps}
+      />
+    );
   })
-  .addNode(
-    "visa_no",
-    injectedProps => {
-      return <FormInput {...injectedProps} />;
-    },
-    { visible: false }
-  )
   .addNode("gender", injectedProps => {
     const options = [
       {
@@ -76,16 +96,41 @@ graph
         label: "Female"
       }
     ];
-    return <FormRadio initialState="f" options={options} {...injectedProps} />;
+    return (
+      <FormRadio
+        label="Select your gender"
+        initialState="f"
+        options={options}
+        {...injectedProps}
+      />
+    );
   })
   .addNode("check_1", (injectedProps, ref) => {
-    return <FormCheckbox ref={ref} {...injectedProps} />;
+    return (
+      <FormCheckbox
+        label="Agree not to smoke on our premises"
+        ref={ref}
+        {...injectedProps}
+      />
+    );
   })
   .addNode("check_2", (injectedProps, ref) => {
-    return <FormCheckbox ref={ref} {...injectedProps} />;
+    return (
+      <FormCheckbox
+        label="Agree to our terms and conditions"
+        ref={ref}
+        {...injectedProps}
+      />
+    );
   })
   .addNode("check_3", (injectedProps, ref) => {
-    return <FormCheckbox ref={ref} {...injectedProps} />;
+    return (
+      <FormCheckbox
+        label="Agree to our Privacy Policy"
+        ref={ref}
+        {...injectedProps}
+      />
+    );
   })
   .link("check_1")
   .to("check_3", (check_1, toNode) => {
