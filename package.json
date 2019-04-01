@@ -7,8 +7,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "jest",
-    "deploy": "DEPLOY=true npm run build && now -e DEPLOY=true"
+    "test": "jest"
   },
   "author": "",
   "license": "MIT",
