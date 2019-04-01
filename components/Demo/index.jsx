@@ -117,7 +117,7 @@ export default function Demo() {
                 { value: "halal", label: "Halal" },
                 { value: "none", label: "No restrictions" }
               ]}
-              initialState="f"
+              initialState="none"
             />
             <FormInput
               label="Additional comments"
