@@ -10,7 +10,9 @@ for (let i = 0; i < count; i++) {
   graph.addNode(
     prefix + i,
     (props, ref) => {
-      return <FormInput ref={ref} {...props} />;
+      const label =
+        i === 0 ? "Modify me and see what happens" : `Copy field no. ${i + 1}`;
+      return <FormInput label={label} ref={ref} {...props} />;
     },
     { props: {} }
   );
