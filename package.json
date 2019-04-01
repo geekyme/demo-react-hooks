@@ -23,6 +23,7 @@
     "react": "^16.8.4",
     "react-day-picker": "7.3.0",
     "react-dom": "^16.8.4",
+    "react-icons": "3.5.0",
     "react-select": "2.4.2",
     "reset-css": "4.0.1"
   },
