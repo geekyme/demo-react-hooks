@@ -1,13 +1,25 @@
+import styles from "./FormUI.scss";
+import classNames from "classnames";
+
+export function Label({ label }) {
+  return label ? <label>{label}</label> : null;
+}
+
+export function Error({ pristine, error }) {
+  const show = !pristine && error;
+
+  return show ? <small className={styles.error}>{error}</small> : null;
+}
+
 export default function FormUI(props) {
-  const { children, name, error, pristine, ...other } = props;
+  const { children, label, error, pristine, className, ...other } = props;
+
+  const containerClassName = classNames(styles.ui, className);
   return (
-    <div {...other}>
-      <label>{name}</label>
-      <br />
+    <div {...other} className={containerClassName}>
+      <Label label={label} />
       {children}
-      <small style={{ color: "red", marginLeft: 10 }}>
-        {!pristine && error && <label>{error}</label>}
-      </small>
+      <Error pristine={pristine} error={error} />
     </div>
   );
 }

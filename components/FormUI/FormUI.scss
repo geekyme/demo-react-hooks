@@ -1,0 +1,38 @@
+@import "../Layout/variables.scss";
+
+.ui {
+  margin: 20px 0;
+
+  & input[type="text"] {
+    padding: 15px 20px;
+    -webkit-appearance: none;
+    outline: none;
+    border: 1px solid rgba(189, 195, 199, 1);
+    font-family: $font-family;
+    font-size: 18px;
+    background: rgba(236, 240, 241, 1);
+    width: 100%;
+
+    &:focus {
+      background: #fff;
+      border-color: #ad5389;
+      color: #3c1053;
+    }
+  }
+
+  &:focus-within {
+    color: #ad5389;
+  }
+}
+
+.label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.error {
+  display: block;
+  color: #fc427b;
+  font-size: 14px;
+  margin-top: 8px;
+}

@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 @font-face {
   font-family: "Orkney";
   src: url("../../assets/Orkney-Light.otf");
@@ -28,7 +30,11 @@
     width: 100%;
     height: 100%;
     position: relative;
-    font-family: "Orkney", Arial, Helvetica, sans-serif;
+    font-family: "Orkney", Arial, Helvetica, sans-serif !important;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 }
 
@@ -67,8 +73,9 @@
   grid-area: a;
   padding: 0 80px 0 80px;
   background: #ffffff;
-  max-width: 960px;
+  width: 960px;
   min-height: 0;
+  justify-self: center;
 
   border-radius: 20px 20px 0 0;
   -webkit-box-shadow: 0px 20px 49px -17px rgba(0, 0, 0, 0.35);
@@ -97,6 +104,6 @@
   min-height: 0;
   overflow: auto;
   padding: 20px;
-  background: rgba(242, 241, 239, 1);
+  background: #ffffff;
   box-sizing: border-box;
 }

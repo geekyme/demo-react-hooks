@@ -9,6 +9,7 @@ function FormInput(props, ref) {
     store,
     initialState = "",
     onChange,
+    label,
     ...other
   } = props;
   const { setValue, value, pristine, error } = useFormState({
@@ -33,7 +34,7 @@ function FormInput(props, ref) {
   }
 
   return (
-    <FormUI pristine={pristine} error={error} name={name}>
+    <FormUI pristine={pristine} error={error} label={label}>
       <input
         type="text"
         style={{ marginTop: 5 }}
