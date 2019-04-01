@@ -4,12 +4,27 @@ import { useFormState } from "components/Form/FormUtils";
 import FormUI from "components/FormUI";
 import styles from "./FormDateRange.scss";
 
+function defaultValidate(value) {
+  const { from, to } = value;
+
+  if (isValidDate(from) && isValidDate(to)) {
+    return null;
+  } else {
+    return "Please select a valid to and from date";
+  }
+}
+
+function isValidDate(d) {
+  return d instanceof Date && !isNaN(d);
+}
+
 export default function FormDateRange(props) {
-  const { initialState = {}, name, label } = props;
+  const { initialState = {}, name, validate = defaultValidate, label } = props;
   const toEl = useRef();
   const { setValue, value, error, pristine } = useFormState({
     name,
-    initialState
+    initialState,
+    validate
   });
   const { from, to } = value;
 
