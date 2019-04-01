@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import App, { Container } from "next/app";
 
 class MyApp extends App {
@@ -17,6 +18,60 @@ class MyApp extends App {
 
     return (
       <Container>
+        <Head>
+          {/* <!-- COMMON TAGS --> */}
+          <meta charset="utf-8" />
+          <title>
+            Demo React Hooks - A demo on how to use react hooks for forms
+          </title>
+          {/* <!-- Search Engine --> */}
+          <meta
+            name="description"
+            content="Using context, state, effect, and custom hooks, you can build reusable state logic / across components and only UI concerns inside your components"
+          />
+          <meta
+            name="image"
+            content="https://demo-react-hooks.now.sh/static/og.png"
+          />
+          {/* <!-- Schema.org for Google --> */}
+          <meta
+            itemprop="name"
+            content="Demo React Hooks - A demo on how to use react hooks for forms"
+          />
+          <meta
+            itemprop="description"
+            content="Using context, state, effect, and custom hooks, you can build reusable state / logic across components and only UI concerns inside your components"
+          />
+          <meta
+            itemprop="image"
+            content="https://demo-react-hooks.now.sh/static/og.png"
+          />
+          {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
+          <meta
+            name="og:title"
+            content="Demo React Hooks - A demo on how to use react hooks for forms"
+          />
+          <meta
+            name="og:description"
+            content="Using context, state, effect, and custom hooks, you can build reusable state logic / across components and only UI concerns inside your components"
+          />
+          <meta
+            name="og:image"
+            content="https://demo-react-hooks.now.sh/static/og.png"
+          />
+          <meta name="og:url" content="https://demo-react-hooks.now.sh" />
+          <meta
+            name="og:site_name"
+            content="Demo React Hooks - A demo on how to use react hooks for forms"
+          />
+          <meta name="og:type" content="website" />
+          <meta
+            name="keywords"
+            content="react hooks reactjs javascript components"
+          />
+
+          <style>{`body { margin: 0 } /* custom! */`}</style>
+        </Head>
         <Component {...pageProps} />
       </Container>
     );
