@@ -27,23 +27,10 @@ class MyApp extends App {
           {/* <!-- Search Engine --> */}
           <meta
             name="description"
-            content="Using context, state, effect, and custom hooks, you can build reusable state logic / across components and only UI concerns inside your components"
+            content="Using context, state, effect, and custom hooks, you can build reusable state logic across components and only keep UI concerns inside your components"
           />
           <meta
             name="image"
-            content="https://demo-react-hooks.now.sh/static/og.png"
-          />
-          {/* <!-- Schema.org for Google --> */}
-          <meta
-            itemprop="name"
-            content="Demo React Hooks - A demo on how to use react hooks for forms"
-          />
-          <meta
-            itemprop="description"
-            content="Using context, state, effect, and custom hooks, you can build reusable state / logic across components and only UI concerns inside your components"
-          />
-          <meta
-            itemprop="image"
             content="https://demo-react-hooks.now.sh/static/og.png"
           />
           {/* <!-- Open Graph general (Facebook, Pinterest & Google+) --> */}
@@ -53,7 +40,7 @@ class MyApp extends App {
           />
           <meta
             name="og:description"
-            content="Using context, state, effect, and custom hooks, you can build reusable state logic / across components and only UI concerns inside your components"
+            content="Using context, state, effect, and custom hooks, you can build reusable state logic across components and only keep UI concerns inside your components"
           />
           <meta
             name="og:image"
