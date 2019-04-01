@@ -36,7 +36,7 @@ export default function AgendaPage() {
         />
         <FormSelect
           initialState={{ value: "strawberry", label: "Strawberry" }}
-          onChange={(...args) => console.log("standalone select", args)}
+          onChange={value => console.log("standalone select", value)}
           options={[
             { value: "chocolate", label: "Chocolate" },
             { value: "strawberry", label: "Strawberry" },

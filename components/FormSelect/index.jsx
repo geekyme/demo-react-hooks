@@ -5,7 +5,7 @@ import Select from "react-select";
 import FormUI from "components/FormUI";
 
 export default function FormSelect(props) {
-  const { initialState, name, store, ...other } = props;
+  const { initialState, name, store, onChange, ...other } = props;
   const [state, setState] = useState(initialState);
   const { setValue } = useFormState({
     name,
@@ -15,12 +15,12 @@ export default function FormSelect(props) {
 
   useEffectOnMount(() => {
     setValue(state.value);
-    if (typeof props.onChange === "function") {
-      props.onChange(selected);
+    if (typeof onChange === "function") {
+      onChange(state.value);
     }
   }, [state]);
 
-  function onChange(selected) {
+  function onSelectChange(selected) {
     setState(selected);
   }
 
@@ -28,7 +28,7 @@ export default function FormSelect(props) {
     <FormUI name={props.name}>
       <Select
         value={state}
-        onChange={onChange}
+        onChange={onSelectChange}
         options={props.options}
         {...other}
       />
