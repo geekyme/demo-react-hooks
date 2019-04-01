@@ -29,7 +29,7 @@ export default function AgendaPage() {
       </div>
       <div>
         <h2>Standalone</h2>
-        <FormDateRange />
+        <FormDateRange label="Travel Dates" />
         <FormInput
           label="KrisFlyer Miles No."
           onChange={value => console.log("standalone", value)}

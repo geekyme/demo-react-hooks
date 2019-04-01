@@ -35,13 +35,7 @@ function FormInput(props, ref) {
 
   return (
     <FormUI pristine={pristine} error={error} label={label}>
-      <input
-        type="text"
-        style={{ marginTop: 5 }}
-        onChange={onInputChange}
-        value={value}
-        {...other}
-      />
+      <input type="text" onChange={onInputChange} value={value} {...other} />
     </FormUI>
   );
 }
