@@ -1,5 +1,4 @@
 import DayPickerInput from "react-day-picker/DayPickerInput";
-import "react-day-picker/lib/style.css";
 import { useRef } from "react";
 import { useFormState } from "components/Form/FormUtils";
 import FormUI from "components/FormUI";
@@ -47,7 +46,6 @@ export default function FormDateRange(props) {
             disabledDays: { after: to },
             toMonth: to,
             modifiers,
-            numberOfMonths: 2,
             onDayClick: focusTo
           }}
           inputProps={{
@@ -67,8 +65,7 @@ export default function FormDateRange(props) {
             disabledDays: { before: from },
             modifiers,
             month: from,
-            fromMonth: from,
-            numberOfMonths: 2
+            fromMonth: from
           }}
           inputProps={{
             type: "text"

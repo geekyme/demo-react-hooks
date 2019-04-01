@@ -4,6 +4,7 @@
 :global {
   .formUI {
     margin: 30px 0;
+    position: relative;
 
     & input[type="text"] {
       padding: 15px 20px;
