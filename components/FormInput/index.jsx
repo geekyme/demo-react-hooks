@@ -3,7 +3,14 @@ import FormUI from "components/FormUI";
 import { forwardRef, useImperativeHandle } from "react";
 
 function FormInput(props, ref) {
-  const { name, validate, store, initialState = "", ...other } = props;
+  const {
+    name,
+    validate,
+    store,
+    initialState = "",
+    onChange,
+    ...other
+  } = props;
   const { setValue, value, pristine, error } = useFormState({
     name,
     initialState,
@@ -17,33 +24,23 @@ function FormInput(props, ref) {
     }
   }));
 
-  function onChange(e) {
+  function onInputChange(e) {
     setValue(e.target.value);
 
-    if (typeof props.onChange === "function") {
-      props.onChange(e.target.value);
+    if (typeof onChange === "function") {
+      onChange(e.target.value);
     }
   }
 
-  function _setValue(e) {
-    e.preventDefault();
-    setValue("boo");
-  }
-
   return (
-    <FormUI
-      style={{ margin: "20px 10px" }}
-      pristine={pristine}
-      error={error}
-      name={name}
-    >
+    <FormUI pristine={pristine} error={error} name={name}>
       <input
+        type="text"
         style={{ marginTop: 5 }}
-        onChange={onChange}
+        onChange={onInputChange}
         value={value}
         {...other}
       />
-      <button onClick={_setValue}>Change value</button>
     </FormUI>
   );
 }
