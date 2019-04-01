@@ -63,14 +63,30 @@
     ". a a .";
 }
 
-.title {
+.header {
   grid-area: b;
   justify-self: center;
-  margin: 1.2em 0;
+  margin: 45px 0;
   color: #fff;
-  font-weight: 700;
+  text-align: center;
 }
 
+.title {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-weight: 300;
+  font-size: 16px;
+  position: relative;
+}
+
+.arrowIcon {
+  position: absolute;
+  top: -2px;
+  font-size: 20px;
+}
 .tablet {
   display: grid;
   grid-template-areas:
