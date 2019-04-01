@@ -69,8 +69,18 @@ export default function Demo() {
               name="travel_date"
             />
             <FormSelect
-              label="Select your country of residence"
-              name="country"
+              label="Country of origin"
+              name="country_from"
+              options={[
+                { value: "sg", label: "Singapore" },
+                { value: "my", label: "Malaysia" },
+                { value: "tw", label: "Taiwan" }
+              ]}
+              initialState={{ value: "sg", label: "Singapore" }}
+            />
+            <FormSelect
+              label="Destination"
+              name="country_to"
               options={[
                 { value: "sg", label: "Singapore" },
                 { value: "my", label: "Malaysia" },
@@ -89,15 +99,16 @@ export default function Demo() {
               ]}
               initialState={{
                 select: { value: "Mrs", label: "Mrs" },
-                input: "bob"
+                input: "Magnolia"
               }}
             />
             <FormRadio
-              label="Select your gender"
-              name="gender"
+              label="Select your meal preferences"
+              name="meal"
               options={[
-                { value: "m", label: "Male" },
-                { value: "f", label: "Female" }
+                { value: "veggie", label: "Vegetarian" },
+                { value: "halal", label: "Halal" },
+                { value: "none", label: "No restrictions" }
               ]}
               initialState="f"
             />
