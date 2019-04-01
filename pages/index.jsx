@@ -10,6 +10,7 @@ import FormSelect from "components/FormSelect";
 import FormDateRange from "components/FormDateRange";
 import FormSelectInputGroup from "../components/FormSelectInputGroup";
 import Form from "components/Form";
+import Layout from "components/Layout";
 
 export default function AgendaPage() {
   function customValidate(value) {
@@ -20,7 +21,7 @@ export default function AgendaPage() {
     }
   }
   return (
-    <div>
+    <Layout>
       <div>
         <h2>Simple Editable list</h2>
         <GlanceItems />
@@ -105,6 +106,6 @@ export default function AgendaPage() {
         <h2>Form Builder (Large)</h2>
         <FormBuilder config={largeConfig} />
       </div>
-    </div>
+    </Layout>
   );
 }

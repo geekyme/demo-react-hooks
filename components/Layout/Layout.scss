@@ -1,0 +1,56 @@
+@font-face {
+  font-family: "Orkney";
+  src: url("../../assets/Orkney-Light.otf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Orkney";
+  src: url("../../assets/Orkney-Regular.otf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Orkney";
+  src: url("../../assets/Orkney-Medium.otf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Orkney";
+  src: url("../../assets/Orkney-Bold.otf");
+  font-weight: 700;
+}
+
+:global {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font-family: "Orkney", Arial, Helvetica, sans-serif;
+  }
+}
+
+.bg {
+  background: #7f7fd5; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #91eae4,
+    #86a8e7,
+    #7f7fd5
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #91eae4,
+    #86a8e7,
+    #7f7fd5
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
