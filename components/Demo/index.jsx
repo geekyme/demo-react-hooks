@@ -134,7 +134,6 @@ export default function Demo() {
               label="Agree to our Privacy Policy statement"
               name="agree_privacy"
             />
-            <Button type="reset">Reset</Button>
             <Button btnType="primary" type="submit">
               Submit
             </Button>
