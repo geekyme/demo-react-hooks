@@ -55,8 +55,12 @@ export default function Demo() {
               console.log("Form submit errors", errors);
             }}
           >
-            <FormDateRange name="travel_date" />
+            <FormDateRange
+              label="Select your travel dates"
+              name="travel_date"
+            />
             <FormSelect
+              label="Select your country of residence"
               name="country"
               options={[
                 { value: "sg", label: "Singapore" },
