@@ -2,7 +2,15 @@ import { useFormState } from "../Form/FormUtils";
 import FormUI from "components/FormUI";
 
 export default function FormRadio(props) {
-  const { name, onChange, initialState, store, options, ...other } = props;
+  const {
+    name,
+    label,
+    onChange,
+    initialState,
+    store,
+    options,
+    ...other
+  } = props;
 
   if (typeof options === "undefined" || options.length < 2) {
     throw new Error("Radio needs to have at least 2 options prop set!");
@@ -19,11 +27,12 @@ export default function FormRadio(props) {
   }
 
   return (
-    <FormUI style={{ margin: "20px 10px" }} name={props.name}>
+    <FormUI name={name} label={label}>
       {options.map((option, index) => {
         const id = `${props.name}_${index}`;
+
         return (
-          <div key={id}>
+          <div className="radio" key={id}>
             <input
               id={id}
               type="radio"
@@ -32,9 +41,7 @@ export default function FormRadio(props) {
               value={option.value}
               {...other}
             />
-            <label style={{ marginLeft: 3 }} htmlFor={id}>
-              {option.label}
-            </label>
+            <label htmlFor={id}>{option.label}</label>
           </div>
         );
       })}
