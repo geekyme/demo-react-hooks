@@ -4,9 +4,18 @@ import { useEffectOnMount } from "components/utils";
 import Select from "react-select";
 import FormUI from "components/FormUI";
 import styles from "./FormSelect.scss";
+import classNames from "classnames";
 
 export default function FormSelect(props) {
-  const { initialState, name, label, store, onChange, ...other } = props;
+  const {
+    initialState,
+    name,
+    label,
+    store,
+    onChange,
+    className,
+    ...other
+  } = props;
   const [state, setState] = useState(initialState);
   const { setValue } = useFormState({
     name,
@@ -25,12 +34,10 @@ export default function FormSelect(props) {
     setState(selected);
   }
 
-  console.log(styles.select);
-
   return (
     <FormUI name={name} label={label}>
       <Select
-        className={styles.select}
+        className={classNames(styles.select, className)}
         classNamePrefix="selectPrefix"
         value={state}
         onChange={onSelectChange}

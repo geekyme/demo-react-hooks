@@ -70,6 +70,7 @@ export default function AgendaPage() {
           />
           <FormSelectInputGroup
             name="full_name"
+            label="Provide your full name"
             options={[
               { value: "Mr", label: "Mr" },
               { value: "Mrs", label: "Mrs" },

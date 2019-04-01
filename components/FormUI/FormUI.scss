@@ -1,25 +1,25 @@
 @import "../Layout/variables.scss";
 @import "./mixin.scss";
 
-.ui {
-  margin: 30px 0;
+:global {
+  .formUI {
+    margin: 30px 0;
 
-  & input[type="text"] {
-    padding: 15px 20px;
-    @include formItemBorder();
-    -webkit-appearance: none;
-    outline: none;
-    font-family: $font-family;
-    font-size: 18px;
-    background: #fff;
-    width: 100%;
+    & input[type="text"] {
+      padding: 15px 20px;
+      @include formItemBorder();
+      -webkit-appearance: none;
+      outline: none;
+      font-family: $font-family;
+      font-size: 18px;
+      background: #fff;
+      width: 100%;
 
-    &:focus {
-      @include formItemFocused();
+      &:focus {
+        @include formItemFocused();
+      }
     }
-  }
 
-  :global {
     .radio,
     .check {
       background-color: #fff;

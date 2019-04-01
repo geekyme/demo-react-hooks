@@ -14,7 +14,7 @@ export function Error({ pristine, error }) {
 export default function FormUI(props) {
   const { children, label, error, pristine, className, ...other } = props;
 
-  const containerClassName = classNames(styles.ui, className);
+  const containerClassName = classNames("formUI", className);
   return (
     <div {...other} className={containerClassName}>
       <Label label={label} />
