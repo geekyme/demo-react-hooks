@@ -57,11 +57,18 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-row-gap: 100px;
   grid-template-areas:
-    ". . . ."
+    "b b b b"
     ". a a ."
     ". a a .";
+}
+
+.title {
+  grid-area: b;
+  justify-self: center;
+  margin: 1.2em 0;
+  color: #fff;
+  font-weight: 700;
 }
 
 .tablet {
