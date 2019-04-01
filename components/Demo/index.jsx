@@ -101,6 +101,13 @@ export default function Demo() {
                 select: { value: "Mrs", label: "Mrs" },
                 input: "Magnolia"
               }}
+              validate={value => {
+                if (value === "") {
+                  return "Must not be empty!";
+                } else {
+                  return null;
+                }
+              }}
             />
             <FormRadio
               label="Select your meal preferences"

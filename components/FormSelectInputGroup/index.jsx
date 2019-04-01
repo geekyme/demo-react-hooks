@@ -1,7 +1,7 @@
 import FormInput from "components/FormInput";
 import FormSelect from "components/FormSelect";
 import FormUI from "components/FormUI";
-import { useEffectOnMount } from "components/utils";
+import { useEffect } from "react";
 import { useFormState, useStore } from "../Form/FormUtils";
 import styles from "./FormSelectInputGroup.scss";
 
@@ -27,7 +27,7 @@ export default function FormSelectInputGroup(props) {
     name
   });
 
-  useEffectOnMount(() => {
+  useEffect(() => {
     setValue({
       title: store.data.select,
       name: store.data.input
