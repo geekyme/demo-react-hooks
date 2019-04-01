@@ -26,4 +26,4 @@ This project is built on top of [NextJS](http://nextjs.org) for convenience
 
 1. `npm install`
 2. `npm run dev`
-3. Open your browser and play with both examples. There is simulated delay with the editable list.
+3. (For production build) `npm run build && npm start`
