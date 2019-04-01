@@ -4,15 +4,6 @@ A demo on how to use react hooks for everything. See website link above for demo
 
 A few examples are show cased here:
 
-### A simple editable list
-
-- Using useState / useContext hooks to create a global observable store
-- Providing custom useAppContext hook as an API to the store
-- Store mutators are also passed down in context
-- Using useState hook as transient component state (errors, input state, etc.)
-- Using useEffect hook to do things like run init state
-- Using custom hooks (useAdd / useRemove) to handle side effects.
-
 ### A standalone form field
 
 - Using custom useFormState to mask complexity of getting data from context / state
