@@ -6,7 +6,8 @@ import FormCheckbox from "components/FormCheckbox";
 import FormRadio from "components/FormRadio";
 import FormSelect from "components/FormSelect";
 import FormDateRange from "components/FormDateRange";
-import FormSelectInputGroup from "../components/FormSelectInputGroup";
+import FormSelectInputGroup from "components/FormSelectInputGroup";
+import Button from "components/Button";
 import Form from "components/Form";
 import Layout from "components/Layout";
 
@@ -99,8 +100,10 @@ export default function AgendaPage() {
             label="Agree to our Privacy Policy statement"
             name="agree_privacy"
           />
-          <button type="reset">Reset</button>
-          <button type="submit">Submit</button>
+          <Button type="reset">Reset</Button>
+          <Button btnType="primary" type="submit">
+            Submit
+          </Button>
         </Form>
       </div>
       <div>

@@ -1,0 +1,28 @@
+@import "../Layout/variables.scss";
+@import "../FormUI/_mixin.scss";
+
+.button {
+  display: inline-block;
+  padding: 15px 20px;
+  width: 150px;
+  color: white;
+  font-size: $font-size;
+  cursor: pointer;
+  border-radius: $border-radius;
+  border: 0;
+
+  background: rgba(189, 195, 199, 1);
+  margin-right: 20px;
+
+  &:hover {
+    background: #7e8991;
+  }
+}
+
+.buttonPrimary {
+  composes: button;
+  background: $maroon;
+  &:hover {
+    background: $maroon-dark;
+  }
+}

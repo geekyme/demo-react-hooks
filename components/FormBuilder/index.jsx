@@ -1,4 +1,5 @@
 import Form from "components/Form";
+import Button from "components/Button";
 import { useGraph } from "components/FormBuilder/GraphUtils";
 
 export default function FormBuilder(props) {
@@ -18,8 +19,10 @@ export default function FormBuilder(props) {
       data={props.initialState}
     >
       {ui}
-      <button type="reset">Reset</button>
-      <button type="submit">Submit</button>
+      <Button type="reset">Reset</Button>
+      <Button btnType="primary" type="submit">
+        Submit
+      </Button>
     </Form>
   );
 }
