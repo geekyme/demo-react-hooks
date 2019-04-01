@@ -4,8 +4,9 @@ import styles from "./Layout.scss";
 export default function Layout(props) {
   return (
     <div className={styles.bg}>
-      <h1>QONTRA</h1>
-      {props.children}
+      <div className={styles.tablet}>
+        <div className={styles.screen}>{props.children}</div>
+      </div>
     </div>
   );
 }

@@ -102,10 +102,10 @@ export default function AgendaPage() {
         <h2>Form Builder</h2>
         <FormBuilder config={formConfig} />
       </div>
-      <div>
+      {/* <div>
         <h2>Form Builder (Large)</h2>
         <FormBuilder config={largeConfig} />
-      </div>
+      </div> */}
     </Layout>
   );
 }
