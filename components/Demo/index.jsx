@@ -61,6 +61,7 @@ export default function Demo() {
             onSubmit={(data, errors) => {
               console.log("Form submit data", data);
               console.log("Form submit errors", errors);
+              alert("Check the developer console!");
             }}
           >
             <FormDateRange

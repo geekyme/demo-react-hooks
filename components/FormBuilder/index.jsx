@@ -8,6 +8,7 @@ export default function FormBuilder(props) {
   function onSubmit(state, errors) {
     console.log("form", state);
     console.log("errors", errors);
+    alert("Check the developer console!");
   }
 
   return (
