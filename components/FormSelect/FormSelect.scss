@@ -16,6 +16,10 @@
     box-shadow: none !important;
   }
 
+  .selectPrefix__option {
+    padding: 13px 20px !important;
+  }
+
   .selectPrefix__option--is-selected {
     @include formItemSelected();
   }
