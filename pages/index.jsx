@@ -94,8 +94,15 @@ export default function AgendaPage() {
             initialState="boo"
             validate="number"
           />
-          <FormCheckbox name="agree_tos" initialState={true} />
-          <FormCheckbox name="agree_privacy" />
+          <FormCheckbox
+            label="Agree to our Terms & Conditions"
+            name="agree_tos"
+            initialState={true}
+          />
+          <FormCheckbox
+            label="Agree to our Privacy Policy statement"
+            name="agree_privacy"
+          />
           <button type="reset">Reset</button>
           <button type="submit">Submit</button>
         </Form>
