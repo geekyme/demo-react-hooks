@@ -1,0 +1,35 @@
+@import "../FormUI/mixin.scss";
+@import "../Layout/variables.scss";
+
+.select {
+  display: block;
+}
+
+:global {
+  .selectPrefix__value-container {
+    padding: 14px 20px !important;
+  }
+
+  .selectPrefix__control--menu-is-open,
+  .selectPrefix__control--is-focused {
+    @include formItemFocused();
+    box-shadow: none !important;
+  }
+
+  .selectPrefix__option--is-selected {
+    @include formItemSelected();
+  }
+
+  .selectPrefix__single-value {
+    display: block;
+    font-size: 18px;
+  }
+
+  .selectPrefix__input {
+    height: 18px;
+  }
+
+  .selectPrefix__control {
+    @include formItemBorder();
+  }
+}

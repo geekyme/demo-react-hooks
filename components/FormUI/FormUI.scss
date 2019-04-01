@@ -1,20 +1,21 @@
 @import "../Layout/variables.scss";
+@import "./mixin.scss";
 
 .ui {
-  margin: 20px 0;
+  margin: 30px 0;
 
   & input[type="text"] {
     padding: 15px 20px;
+    @include formItemBorder();
     -webkit-appearance: none;
     outline: none;
-    border: 1px solid rgba(189, 195, 199, 1);
     font-family: $font-family;
     font-size: 18px;
     background: #fff;
     width: 100%;
 
     &:focus {
-      border-color: #ad5389;
+      @include formItemFocused();
     }
   }
 
@@ -44,7 +45,7 @@
           height: 10px;
           border-radius: 50%;
           content: "";
-          background-color: #ad5389;
+          @include formItemSelected();
           position: absolute;
           left: 50%;
           top: 50%;

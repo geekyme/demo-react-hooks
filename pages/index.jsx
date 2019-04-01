@@ -36,6 +36,7 @@ export default function AgendaPage() {
           validate={customValidate}
         />
         <FormSelect
+          label="Select your favorite dessert"
           initialState={{ value: "strawberry", label: "Strawberry" }}
           onChange={value => console.log("standalone select", value)}
           options={[
@@ -90,8 +91,9 @@ export default function AgendaPage() {
             initialState="f"
           />
           <FormInput
+            label="Additional comments"
             name="additional_comments"
-            initialState="boo"
+            initialState=""
             validate="number"
           />
           <FormCheckbox
