@@ -20,10 +20,15 @@ class MyApp extends App {
       <Container>
         <Head>
           {/* <!-- COMMON TAGS --> */}
-          <meta charset="utf-8" />
+          <meta charSet="utf-8" />
           <title>
             Demo React Hooks - A demo on how to use react hooks for forms
           </title>
+          <link
+            rel="shortcut icon"
+            href="/static/favicon.ico"
+            type="image/x-icon"
+          />
           {/* <!-- Search Engine --> */}
           <meta
             name="description"
