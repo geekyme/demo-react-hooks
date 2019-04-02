@@ -16,6 +16,21 @@ describe("<FormBuilder />", () => {
 
   afterEach(cleanup);
 
+  describe("Submitting without filling form", () => {
+    it("shows all form errors", () => {
+      global.alert = jest.fn();
+      const button = wrapper.getByText("Submit");
+
+      fireEvent.click(button);
+
+      wrapper.getByText("Please select a valid to and from date");
+      wrapper.getByText("Enter a proper NRIC no!");
+      wrapper.getByText("This is required!");
+
+      expect(global.alert).toBeCalled();
+    });
+  });
+
   describe("Conditional rendering", () => {
     it("only shows field for visa number when you select 'Malaysia'", () => {
       try {
