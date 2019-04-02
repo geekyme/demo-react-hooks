@@ -52,7 +52,7 @@ export default function FormDateRange(props) {
     <FormUI label={label} error={error} pristine={pristine}>
       <div className={styles.container}>
         <DayPickerInput
-          classNames={{ container: styles.from }}
+          classNames={{ container: styles.from, overlay: "__todo__" }}
           value={from}
           placeholder="From"
           dayPickerProps={{
@@ -70,7 +70,7 @@ export default function FormDateRange(props) {
         />
 
         <DayPickerInput
-          classNames={{ container: styles.to }}
+          classNames={{ container: styles.to, overlay: "__todo__" }}
           ref={toEl}
           value={to}
           placeholder="To"
