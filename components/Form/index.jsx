@@ -1,22 +1,23 @@
 import { FormContext, useStore } from "./FormUtils";
 
 export default function Form(props) {
-  const store = useStore(props.data, props.onChange);
+  const { data, onChange, children, onSubmit, ...other } = props;
+  const store = useStore(data, onChange);
 
-  function onSubmit(e) {
+  function onFormSubmit(e) {
     e.preventDefault();
     store.setAllDirty();
-    props.onSubmit(store.data, store.errors);
+    onSubmit(store.data, store.errors);
   }
 
   function onReset() {
-    store.resetData(props.data);
+    store.resetData(data);
   }
 
   return (
-    <FormContext.Provider value={store}>
-      <form onReset={onReset} onSubmit={onSubmit}>
-        {props.children}
+    <FormContext.Provider value={store} {...other}>
+      <form onReset={onReset} onSubmit={onFormSubmit}>
+        {children}
       </form>
     </FormContext.Provider>
   );

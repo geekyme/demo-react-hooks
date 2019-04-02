@@ -35,7 +35,7 @@ export default function FormSelect(props) {
   }
 
   return (
-    <FormUI name={name} label={label}>
+    <FormUI name={name} label={label} data-testid={props["data-testid"]}>
       <Select
         className={classNames(styles.select, className)}
         classNamePrefix="selectPrefix"
