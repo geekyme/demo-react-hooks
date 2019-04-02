@@ -1,4 +1,4 @@
-import "reset-css";
+import "reset-css/reset.css";
 import styles from "./Layout.scss";
 import { H1 } from "components/Typography";
 import { TiArrowRight } from "react-icons/ti";
