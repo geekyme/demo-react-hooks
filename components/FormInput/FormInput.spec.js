@@ -17,15 +17,17 @@ describe("<FormInput />", () => {
   }
 
   beforeEach(() => {
+    const testId = "FormInput";
     wrapper = render(
       <FormInput
         ref={ref}
         name="name"
         initialState={initialState}
         validate={validate}
+        data-testid={testId}
       />
     );
-    el = wrapper.getByTestId("FormInput");
+    el = wrapper.getByTestId(testId);
   });
 
   afterEach(cleanup);

@@ -12,11 +12,17 @@ describe("<FormRadio />", () => {
   const initialState = options[0].value;
 
   beforeEach(() => {
+    const testId = "FormRadio";
     wrapper = render(
-      <FormRadio name={name} initialState={initialState} options={options} />
+      <FormRadio
+        name={name}
+        initialState={initialState}
+        options={options}
+        data-testid={testId}
+      />
     );
 
-    els = wrapper.getAllByTestId("FormRadio");
+    els = wrapper.getAllByTestId(testId);
   });
 
   afterEach(cleanup);
