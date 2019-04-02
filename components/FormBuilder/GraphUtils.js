@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export function useGraph(graph) {
-  const [ui, setState] = useState(graph.ui());
-
-  useEffect(() => {
+  const [ui, setState] = useState(() => {
     graph.init();
-    setState(graph.ui());
-  }, []);
+
+    return graph.ui();
+  });
 
   function runChanges(changes) {
     graph.runChanges(changes);
