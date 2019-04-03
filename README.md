@@ -1,5 +1,7 @@
 # demo-react-hooks
 
+[![Coverage Status](https://coveralls.io/repos/github/geekyme/demo-react-hooks/badge.svg?branch=master)](https://coveralls.io/github/geekyme/demo-react-hooks?branch=master)
+
 A demo on how to use react hooks for everything. [DEMO](https://demo-react-hooks.now.sh/)
 
 A few examples are show cased here:
