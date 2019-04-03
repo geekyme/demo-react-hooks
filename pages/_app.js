@@ -62,6 +62,10 @@ class MyApp extends App {
             name="keywords"
             content="react hooks reactjs javascript components"
           />
+          <meta
+            name="horangi-verify"
+            content="440ab2c8-7266-4902-833a-797d26198956"
+          />
 
           <style>{`body { margin: 0 } /* custom! */`}</style>
         </Head>
