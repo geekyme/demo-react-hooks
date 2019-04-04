@@ -11,7 +11,7 @@ setup:
   script: npm install
 test:
   stage: test
-  script: npm test
+  script: npm test -- --coverage
 
 deploy_staging:
   stage: deploy
