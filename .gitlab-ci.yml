@@ -13,6 +13,17 @@ test:
   stage: test
   script: npm test
 
+deploy_staging:
+  stage: deploy
+  script:
+    - ./node_modules/.bin/now -e NODE_ENV=staging --token=$NOW_TOKEN
+    - ./node_modules/.bin/now alias staging-demo-react-hooks --token=MY TOKEN
+  environment:
+    name: staging
+    url: https://staging-demo-react-hooks.now.sh
+  only:
+    - master
+
 deploy_prod:
   stage: deploy
   script:
@@ -22,5 +33,6 @@ deploy_prod:
   environment:
     name: production
     url: https://demo-react-hooks.now.sh
+    when: manual
   only:
     - master
