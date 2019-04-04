@@ -11,7 +11,7 @@ import Button from "components/Button";
 import Form from "components/Form";
 import Layout from "components/Layout";
 import { H2 } from "components/Typography";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaGitlab } from "react-icons/fa";
 import styles from "./Demo.scss";
 
 export default function Demo() {
@@ -30,6 +30,13 @@ export default function Demo() {
         className={styles.github}
       >
         <FaGithub className={styles.icon} />
+      </a>
+      <a
+        href="https://gitlab.com/geekyme/demo-react-hooks"
+        target="_blank"
+        className={styles.gitlab}
+      >
+        <FaGitlab className={styles.icon} />
       </a>
       <div className={styles.container}>
         <div className={styles.standalone}>
