@@ -1,0 +1,25 @@
+image: node:11.12.0
+cache:
+  paths:
+    - node_modules/
+stages:
+  - setup
+  - test
+  - deploy
+setup:
+  stage: setup
+  script: npm install
+test:
+  stage: test
+  script: npm test
+
+deploy_prod:
+  stage: deploy
+  script:
+    - ./node_modules/.bin/now -e NODE_ENV=production --token=$NOW_TOKEN
+    - ./node_modules/.bin/now alias demo-react-hooks --token=$NOW_TOKEN
+  environment:
+    name: production
+    url: https://demo-react-hooks.now.sh
+  only:
+    - master
