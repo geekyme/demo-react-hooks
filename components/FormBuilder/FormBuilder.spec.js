@@ -5,20 +5,38 @@ import {
   waitForElement
 } from "react-testing-library";
 import FormBuilder from "../FormBuilder";
-import formConfig from "components/FormBuilder/formConfig";
+import formConfig, { defaultState } from "components/FormBuilder/formConfig";
 
 describe("<FormBuilder />", () => {
   let wrapper;
+  const spy = jest.fn();
 
   beforeEach(() => {
-    wrapper = render(<FormBuilder config={formConfig} />);
+    wrapper = render(<FormBuilder config={formConfig()} onSubmit={spy} />);
   });
 
   afterEach(cleanup);
 
+  describe("Initial state rendering", () => {
+    it("shows initial state", () => {
+      const id_no = wrapper.getByTestId("id_no");
+
+      expect(id_no.value).toEqual(defaultState.id_no);
+    });
+  });
   describe("Submitting without filling form", () => {
     it("shows all form errors", () => {
-      global.alert = jest.fn();
+      const button = wrapper.getByText("Submit");
+
+      fireEvent.click(button);
+      expect(spy).toBeCalled();
+
+      wrapper.getByText("Please select a valid to and from date");
+      wrapper.getByText("Enter a proper NRIC no!");
+      wrapper.getByText("This is required!");
+    });
+
+    it("shows all form errors", () => {
       const button = wrapper.getByText("Submit");
 
       fireEvent.click(button);
@@ -26,8 +44,6 @@ describe("<FormBuilder />", () => {
       wrapper.getByText("Please select a valid to and from date");
       wrapper.getByText("Enter a proper NRIC no!");
       wrapper.getByText("This is required!");
-
-      expect(global.alert).toBeCalled();
     });
   });
 

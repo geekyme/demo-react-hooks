@@ -5,10 +5,11 @@ import FormInput from "components/FormInput";
 import FormRadio from "components/FormRadio";
 import FormCheckbox from "components/FormCheckbox";
 
-const defaultState = {
+export const defaultState = {
   country: "sg",
   id: "nric",
-  gender: "f"
+  gender: "f",
+  id_no: "sss"
 };
 
 function getConfig(initialState = defaultState) {
@@ -18,44 +19,50 @@ function getConfig(initialState = defaultState) {
     .addNode("travel_dates", injectedProps => {
       return <FormDateRange label="Travel Dates" {...injectedProps} />;
     })
-    .addNode("country", injectedProps => {
-      const options = [
-        {
-          value: "my",
-          label: "Malaysia"
-        },
-        {
-          value: "sg",
-          label: "Singapore"
-        }
-      ];
+    .addNode(
+      "country",
+      injectedProps => {
+        const options = [
+          {
+            value: "my",
+            label: "Malaysia"
+          },
+          {
+            value: "sg",
+            label: "Singapore"
+          }
+        ];
 
-      return (
-        <FormSelect
-          label="Select your country of origin"
-          initialState={initialState[injectedProps.name]}
-          options={options}
-          data-testid={injectedProps.name}
-          {...injectedProps}
-        />
-      );
-    })
-    .addNode("id", injectedProps => {
-      const options = [
-        { value: "fin", label: "Foreign Identity Number" },
-        { value: "nric", label: "Singapore IC" }
-      ];
+        return (
+          <FormSelect
+            label="Select your country of origin"
+            options={options}
+            data-testid={injectedProps.name}
+            {...injectedProps}
+          />
+        );
+      },
+      { props: { initialState: initialState["country"] } }
+    )
+    .addNode(
+      "id",
+      injectedProps => {
+        const options = [
+          { value: "fin", label: "Foreign Identity Number" },
+          { value: "nric", label: "Singapore IC" }
+        ];
 
-      return (
-        <FormRadio
-          label="Select your Identification type"
-          options={options}
-          data-testid={injectedProps.name}
-          initialState={initialState[injectedProps.name]}
-          {...injectedProps}
-        />
-      );
-    })
+        return (
+          <FormRadio
+            label="Select your Identification type"
+            options={options}
+            data-testid={injectedProps.name}
+            {...injectedProps}
+          />
+        );
+      },
+      { props: { initialState: initialState["id"] } }
+    )
     .addNode(
       "visa_no",
       injectedProps => {
@@ -69,15 +76,19 @@ function getConfig(initialState = defaultState) {
       },
       { visible: false }
     )
-    .addNode("id_no", injectedProps => {
-      return (
-        <FormInput
-          label="Enter your ID no."
-          data-testid={injectedProps.name}
-          {...injectedProps}
-        />
-      );
-    })
+    .addNode(
+      "id_no",
+      injectedProps => {
+        return (
+          <FormInput
+            label="Enter your ID no."
+            data-testid={injectedProps.name}
+            {...injectedProps}
+          />
+        );
+      },
+      { props: { initialState: initialState["id_no"] } }
+    )
     .addNode("id_no_copy", (injectedProps, ref) => {
       function validate(value) {
         if (value === "") {
@@ -106,56 +117,71 @@ function getConfig(initialState = defaultState) {
         />
       );
     })
-    .addNode("gender", injectedProps => {
-      const options = [
-        {
-          value: "m",
-          label: "Male"
-        },
-        {
-          value: "f",
-          label: "Female"
-        }
-      ];
-      return (
-        <FormRadio
-          label="Select your gender"
-          initialState={initialState[injectedProps.name]}
-          options={options}
-          {...injectedProps}
-        />
-      );
-    })
-    .addNode("check_1", (injectedProps, ref) => {
-      return (
-        <FormCheckbox
-          label="Checking this will uncheck #3"
-          ref={ref}
-          data-testid={injectedProps.name}
-          {...injectedProps}
-        />
-      );
-    })
-    .addNode("check_2", (injectedProps, ref) => {
-      return (
-        <FormCheckbox
-          label="Checking this will uncheck #3"
-          ref={ref}
-          data-testid={injectedProps.name}
-          {...injectedProps}
-        />
-      );
-    })
-    .addNode("check_3", (injectedProps, ref) => {
-      return (
-        <FormCheckbox
-          label="Checking this will uncheck #1 and #2"
-          ref={ref}
-          data-testid={injectedProps.name}
-          {...injectedProps}
-        />
-      );
-    })
+    .addNode(
+      "gender",
+      injectedProps => {
+        const options = [
+          {
+            value: "m",
+            label: "Male"
+          },
+          {
+            value: "f",
+            label: "Female"
+          }
+        ];
+        return (
+          <FormRadio
+            label="Select your gender"
+            options={options}
+            {...injectedProps}
+          />
+        );
+      },
+      { props: { initialState: initialState["gender"] } }
+    )
+    .addNode(
+      "check_1",
+      (injectedProps, ref) => {
+        return (
+          <FormCheckbox
+            label="Checking this will uncheck #3"
+            ref={ref}
+            data-testid={injectedProps.name}
+            {...injectedProps}
+          />
+        );
+      },
+      { props: { initialState: initialState["check_1"] } }
+    )
+    .addNode(
+      "check_2",
+      (injectedProps, ref) => {
+        return (
+          <FormCheckbox
+            label="Checking this will uncheck #3"
+            ref={ref}
+            data-testid={injectedProps.name}
+            {...injectedProps}
+          />
+        );
+      },
+      { props: { initialState: initialState["check_2"] } }
+    )
+    .addNode(
+      "check_3",
+      (injectedProps, ref) => {
+        return (
+          <FormCheckbox
+            label="Checking this will uncheck #1 and #2"
+            ref={ref}
+            data-testid={injectedProps.name}
+            {...injectedProps}
+          />
+        );
+      },
+      { props: { initialState: initialState["check_3"] } }
+    )
     .link("check_1")
     .to("check_3", (check_1, toNode) => {
       if (check_1) {
