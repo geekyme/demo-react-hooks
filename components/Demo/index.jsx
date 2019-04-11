@@ -15,7 +15,9 @@ import { FaGithub, FaGitlab } from "react-icons/fa";
 import styles from "./Demo.scss";
 
 export function getInitialState(key) {
+  // Silly code for retrieving saved state. Do not copy!
   try {
+    if (typeof window === "undefined") return;
     const state = localStorage.getItem(key);
 
     if (state !== null) {
