@@ -14,6 +14,20 @@ import { H2 } from "components/Typography";
 import { FaGithub, FaGitlab } from "react-icons/fa";
 import styles from "./Demo.scss";
 
+export function getInitialState(key) {
+  try {
+    const state = localStorage.getItem(key);
+
+    if (state !== null) {
+      return JSON.parse(state);
+    } else {
+      throw new Error(`Cannot find ${key}`);
+    }
+  } catch (e) {
+    console.warn(e.message);
+  }
+}
+
 export default function Demo() {
   function customValidate(value) {
     if (value !== "boo") {
@@ -148,11 +162,30 @@ export default function Demo() {
         </div>
         <div className={styles.formBuilder}>
           <H2>Form Builder</H2>
-          <FormBuilder config={formConfig} />
+          <FormBuilder
+            config={formConfig(getInitialState("fb_initial_state"))}
+            onSubmit={(state, errors) => {
+              console.log("form", state);
+              console.log("errors", errors);
+              localStorage.setItem("fb_initial_state", JSON.stringify(state));
+              alert("Check the developer console!");
+            }}
+          />
         </div>
         <div className={styles.formBuilderLarge}>
           <H2>Form Builder (Large)</H2>
-          <FormBuilder config={largeConfig} />
+          <FormBuilder
+            config={largeConfig(getInitialState("fb_initial_large_state"))}
+            onSubmit={(state, errors) => {
+              console.log("form", state);
+              console.log("errors", errors);
+              localStorage.setItem(
+                "fb_initial_large_state",
+                JSON.stringify(state)
+              );
+              alert("Check the developer console!");
+            }}
+          />
         </div>
       </div>
     </Layout>
