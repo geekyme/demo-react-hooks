@@ -127,7 +127,8 @@ function useStoreStrategy(opts) {
   const state = store.data[name];
   const error = getError(validate, state);
 
-  if (isInitialMount.current && error !== null) {
+  // TODO we are writing directly into the store error on each hook cycle
+  if (error !== null) {
     store.errors[name] = error;
   }
 

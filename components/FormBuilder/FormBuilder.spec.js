@@ -33,7 +33,24 @@ describe("<FormBuilder />", () => {
       const button = wrapper.getByText("Submit");
 
       fireEvent.click(button);
-      expect(spy).toBeCalled();
+      expect(spy).toBeCalledWith(
+        {
+          check_1: false,
+          check_2: false,
+          check_3: false,
+          country: "sg",
+          gender: "f",
+          id: "nric",
+          id_no: "sss",
+          id_no_another_copy: "sss",
+          id_no_copy: "sss",
+          travel_dates: {}
+        },
+        {
+          id_no: "Enter a proper NRIC no!",
+          travel_dates: "Please select a valid to and from date"
+        }
+      );
 
       wrapper.getByText("Please select a valid to and from date");
       wrapper.getByText("Enter a proper NRIC no!");
