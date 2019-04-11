@@ -14,24 +14,25 @@ export default function FormSelect(props) {
     store,
     onChange,
     className,
+    options,
     ...other
   } = props;
   const [state, setState] = useState(initialState);
   const { setValue } = useFormState({
     name,
-    initialState: initialState.value,
+    initialState: initialState,
     store
   });
 
   useEffectOnMount(() => {
-    setValue(state.value);
+    setValue(state);
     if (typeof onChange === "function") {
-      onChange(state.value);
+      onChange(state);
     }
   }, [state]);
 
   function onSelectChange(selected) {
-    setState(selected);
+    setState(selected.value);
   }
 
   return (
@@ -39,9 +40,9 @@ export default function FormSelect(props) {
       <Select
         className={classNames(styles.select, className)}
         classNamePrefix="selectPrefix"
-        value={state}
+        value={options.filter(({ value }) => value === state)}
         onChange={onSelectChange}
-        options={props.options}
+        options={options}
         {...other}
       />
     </FormUI>
