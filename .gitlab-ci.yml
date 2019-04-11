@@ -33,6 +33,5 @@ deploy_prod:
   environment:
     name: production
     url: https://demo-react-hooks.now.sh
-  when: manual
   only:
     - master
